@@ -6,7 +6,10 @@ module.exports = {
           'teal':'#009eb0',
           'blue':'#0073e6',
           'whitesSmoke':'#f5f5f5',
-        }
+        },
+        fontFamily: {
+            Parkinsans: ['"Parkinsans"', 'sans-serif'],
+        },
       },
     },  
   }
