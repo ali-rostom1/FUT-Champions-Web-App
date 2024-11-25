@@ -34,7 +34,30 @@
                 </ul>
             </nav>
     
+            <button class="block md:hidden text-white focus:outline-none" id="mobileMenuToggle">
+                <i class="fa-solid fa-bars text-white"></i>
+            </button>
         </div>
-    </header>    
+    
+        <!-- Mobile Menu -->
+        <div class="absolute top-0 left-0 w-full h-full bg-black hidden flex-col md:hidden" id="mobileMenu">
+            <ul class="flex flex-col items-center justify-center gap-4 p-4 h-full">
+                <li>
+                    <a href="index.html" class="text-white hover:text-gray-300 transition duration-300">
+                        Overview
+                    </a>
+                </li>
+                <li>
+                    <a href="/src/pages/players.html" class="text-white hover:text-gray-300 transition duration-300">
+                        Players
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+
+
+    <script src="/src/js/script.js"></script>
 </body>
 </html>
