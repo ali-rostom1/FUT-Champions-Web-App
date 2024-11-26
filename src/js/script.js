@@ -45,9 +45,15 @@ addForm.addEventListener('submit',function(event){
     if(radioInputValidation(radioContainer,radioInput,"Check one of the above !")){
         var pos = radioInput.value;
     }
-    let phy = PHY.value;
-    let def = DEF.value;
-    let sho = SHO.value;
+    if(inputValidation(PHY,"1 TO 100 !")) {
+        var phy = PHY.value;
+    }
+    if(inputValidation(DEF,"1 TO 100 !")) {
+        var def = DEF.value;
+    }
+    if(inputValidation(SHO,"1 TO 100 !")) {
+        var sho = SHO.value;
+    }
     if(name && pos && phy && def && sho){
         var player = new Player(name,pos,phy,def,sho);
         Players.push(player);
@@ -70,9 +76,20 @@ function noNumberString(string){
 }
 
 function resetForm(form){
-    nameInput.classList = 'w-full px-4 py-2 border border-gray-300 rounded-md'; //name input reset
+    nameInput.classList.remove('border-green-600','outline-none','border-red-600','border-2'); //name input reset
     if(nameInput.nextElementSibling) nameInput.nextElementSibling.remove();
+
     if(radioContainer.lastChild.classList == 'text-red-600') radioContainer.lastChild.remove();
+
+    PHY.classList.remove('border-green-600','outline-none','border-red-600','border-2');
+    if(PHY.nextElementSibling) PHY.nextElementSibling.remove();
+
+    DEF.classList.remove('border-green-600','outline-none','border-red-600','border-2');
+    if(DEF.nextElementSibling) DEF.nextElementSibling.remove();
+
+    SHO.classList.remove('border-green-600','outline-none','border-red-600','border-2');
+    if(SHO.nextElementSibling) SHO.nextElementSibling.remove();
+
     form.reset();
 }
 
@@ -100,7 +117,6 @@ function dynamicRadioFormValidation(container,radioInputs){
     });
 }
 function dynamicStatsFormValidation(input){
-    input.maxlength = 3;
     input.addEventListener('input', function(){
         if(input.value != "" && parseInt(input.value)<=100){
             input.classList.add('border-green-600','border-2','outline-none');
