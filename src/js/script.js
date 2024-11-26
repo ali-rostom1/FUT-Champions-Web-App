@@ -13,7 +13,7 @@ openModalBtn.addEventListener('click', function(){
     myModal.classList.toggle('invisible');
     document.body.classList.toggle('overflow-hidden');
     nameInput.addEventListener('input', function(){
-        if(nameInput.value != "" && nameInput.value.length > 5 && isNaN(nameInput.value)){
+        if(nameInput.value != "" && nameInput.value.length > 5 && noNumberString(nameInput.value)){
             nameInput.classList.add('border-green-600','border-2');
             nameInput.classList.remove('border-red-600');
         }else{
@@ -54,7 +54,7 @@ addForm.addEventListener('submit',function(event){
 
 function noNumberString(string){
     for(let i=0;i<string.length;i++){
-        if(!isNaN(string[i])){
+        if(string[i] >= '0' && string[i]<= '9'){
             return 0;
         }
     }
