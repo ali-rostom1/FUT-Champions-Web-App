@@ -72,18 +72,18 @@
                 <form id="addForm">
                     <div class="mb-4">
                         <label for="name" class="block text-gray-700 font-medium mb-2">Name</label>
-                        <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-md" placeholder="hakim ...">
+                        <input type="text" id="nameInput" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-md" placeholder="hakim ...">
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700 font-medium mb-2">Position</label>
                         <div class="flex gap-4 flex-wrap">
-                            <input type="radio" class="hidden" name="Position" id="att"/>
+                            <input type="radio" class="hidden" name="Position" id="att" value="ATT"/>
                             <label class="py-2 px-3 border border-gray-300 rounded-3xl" for="att">ATT</label>
-                            <input type="radio" class="hidden" name="Position" id="mid"/>
+                            <input type="radio" class="hidden" name="Position" id="mid" value="MID"/>
                             <label class="py-2 px-3 border border-gray-300 rounded-3xl" for="mid">MID</label>
-                            <input type="radio" class="hidden" name="Position" id="def"/>
+                            <input type="radio" class="hidden" name="Position" id="def" value="DEF"/>
                             <label class="py-2 px-3 border border-gray-300 rounded-3xl" for="def">DEF</label>
-                            <input type="radio" class="hidden" name="Position" id="gk"/>
+                            <input type="radio" class="hidden" name="Position" id="gk" value="GK"/>
                             <label class="py-2 px-3 border border-gray-300 rounded-3xl" for="gk">GK</label>
                         </div>
                     </div>
@@ -105,13 +105,13 @@
                         </div>
                     </div>
                     <div class="flex justify-end">
-                        <button class="bg-[#0073e6] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Submit</button>
+                        <button type="submit" class="bg-[#0073e6] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Submit</button>
                     </div>
                 </form>
             </div>
         </div>
         <div id="playerCardsContainer" class="container flex items-center mx-auto py-4 px-4">
-            
+
         </div>
     </main>
 
