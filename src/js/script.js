@@ -13,6 +13,8 @@ openModalBtn.addEventListener('click', function(){
     myModal.classList.toggle('invisible');
     document.body.classList.toggle('overflow-hidden');
     dynamicNameFormValidation(nameInput);
+    let radioInputs = document.querySelectorAll('input[name="Position"]');
+    dynamicRadioFormValidation(radioContainer,radioInputs);
     
 });
 
@@ -68,6 +70,7 @@ function noNumberString(string){
 function resetForm(form){
     nameInput.classList = 'w-full px-4 py-2 border border-gray-300 rounded-md'; //name input reset
     if(nameInput.nextElementSibling) nameInput.nextElementSibling.remove();
+    if(radioContainer.lastChild.classList == 'text-red-600') radioContainer.lastChild.remove();
     form.reset();
 }
 
@@ -87,6 +90,14 @@ function dynamicNameFormValidation(input){
         }
     });
 }
+function dynamicRadioFormValidation(container,radioInputs){
+    radioInputs.forEach(radio => {
+        radio.addEventListener('change',function(){
+            if(container.lastChild.classList == 'text-red-600') container.lastChild.remove();
+        });
+    });
+}
+
 
 function inputValidation(input,error){
     if(input.classList.contains('border-green-600')){
