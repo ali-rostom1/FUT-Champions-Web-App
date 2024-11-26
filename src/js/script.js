@@ -13,6 +13,7 @@ openModalBtn.addEventListener('click', function(){
     myModal.classList.toggle('invisible');
     document.body.classList.toggle('overflow-hidden');
     dynamicNameFormValidation(nameInput);
+    
 });
 
 function Player(name,pos,phy,def,sho){
@@ -32,22 +33,21 @@ console.log(Players);
 
 addForm.addEventListener('submit',function(event){
     event.preventDefault();
-    if(nameInput.classList.contains('border-green-600')){
-    }else{
-        console.log(nameInput.nextSibling);
-        if(!nameInput.nextElementSibling){
-            let div = document.createElement('div');
-            div.classList = 'text-red-600';
-            div.innerText = 'ERROR'
-            nameInput.after(div);
-        }
+    if(inputValidation(nameInput,"5 letters and more only !")) {
+        var name = nameInput.value;
     }
-    let pos = document.querySelector('input[name="Position"]:checked').value;
-    let phy = document.getElementById('PHY').value;
-    let def = document.getElementById('DEF').value;
-    let sho = document.getElementById('SHO').value;
-    let player = new Player(name,pos,phy,def,sho);
-    Players.push(player);
+    let radioInput = document.querySelector('input[name="Position"]:checked');
+    if(radioInputValidation(radioContainer,radioInput,"Check one of the above !")){
+        var pos = radioInput.value;
+    }
+    let phy = PHY.value;
+    let def = DEF.value;
+    let sho = SHO.value;
+    if(name && pos && phy && def && sho){
+        var player = new Player(name,pos,phy,def,sho);
+        Players.push(player);
+    }
+    console.log(Players);
 })
 
 
@@ -86,4 +86,31 @@ function dynamicNameFormValidation(input){
             input.classList.remove('border-green-600');
         }
     });
+}
+
+function inputValidation(input,error){
+    if(input.classList.contains('border-green-600')){
+        return 1;
+    }else{
+        if(!input.nextElementSibling){
+            let div = document.createElement('div');
+            div.classList = 'text-red-600';
+            div.innerText = error;
+            input.after(div);
+        }
+        return 0;
+    }
+}
+function radioInputValidation(container,input,error){
+    if(input){
+        return input.value;
+    }else{
+        if(container.lastChild.classList!='text-red-600'){
+            let div = document.createElement('div');
+            div.classList = 'text-red-600';
+            div.innerText = error;
+            container.appendChild(div);
+        }
+        return 0;
+    }
 }

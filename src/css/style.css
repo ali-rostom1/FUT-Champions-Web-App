@@ -31,8 +31,3 @@ input[type="radio"]:checked + label {
     border-color: #007bff;
 }
 
-.error{
-    color: red;
-    text-decoration: underline;
-}
-
