@@ -15,6 +15,9 @@ openModalBtn.addEventListener('click', function(){
     dynamicNameFormValidation(nameInput);
     let radioInputs = document.querySelectorAll('input[name="Position"]');
     dynamicRadioFormValidation(radioContainer,radioInputs);
+    dynamicStatsFormValidation(PHY);
+    dynamicStatsFormValidation(DEF);
+    dynamicStatsFormValidation(SHO);
     
 });
 
@@ -66,7 +69,6 @@ function noNumberString(string){
     return 1;
 }
 
-
 function resetForm(form){
     nameInput.classList = 'w-full px-4 py-2 border border-gray-300 rounded-md'; //name input reset
     if(nameInput.nextElementSibling) nameInput.nextElementSibling.remove();
@@ -97,7 +99,22 @@ function dynamicRadioFormValidation(container,radioInputs){
         });
     });
 }
-
+function dynamicStatsFormValidation(input){
+    input.maxlength = 3;
+    input.addEventListener('input', function(){
+        if(input.value != "" && parseInt(input.value)<=100){
+            input.classList.add('border-green-600','border-2','outline-none');
+            input.classList.remove('border-red-600');
+            if(input.nextElementSibling) input.nextElementSibling.remove();
+        }else if(input.value == ""){
+            input.classList.remove('border-green-600','border-red-600','outline-none');
+        }
+        else{
+            input.classList.add('border-red-600','border-2','outline-none');
+            input.classList.remove('border-green-600');
+        }
+    });
+}
 
 function inputValidation(input,error){
     if(input.classList.contains('border-green-600')){
