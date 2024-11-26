@@ -57,7 +57,7 @@
     </header>
     <main class="min-h-screen bg-[#009eb0] ">
         <div class="container flex justify-between items-center mx-auto py-4 px-4">
-            <span class="text-gray-600 border-b border-gray-600"> 0 players shown</span>
+            <span id="playerCount" class="text-gray-600 border-b border-gray-600"> 0 players shown</span>
             <button id="openModalBtn" class="bg-black text-white py-2 px-4 rounded-full">ADD PLAYER</button>
         </div>
         <div id="myModal" class="fixed invisible inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50 ">
@@ -110,7 +110,11 @@
                 </form>
             </div>
         </div>
+        <div id="playerCardsContainer" class="container flex items-center mx-auto py-4 px-4">
+            
+        </div>
     </main>
+
     <script src="/src/js/script.js"></script>
 </body>
 </html>
