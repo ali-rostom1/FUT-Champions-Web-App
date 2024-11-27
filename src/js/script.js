@@ -203,7 +203,7 @@ class Team {
         this.formation = "4-3-3";
     }
     addPlayer(player){
-        if(this.players.length >= 16){
+        if(this.players.length >= 11){
             return "Team full";
         }else if(this.players.length > 0){
             for(let el of this.players){
