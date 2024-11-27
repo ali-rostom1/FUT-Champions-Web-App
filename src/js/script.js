@@ -21,20 +21,6 @@ openModalBtn.addEventListener('click', function(){
     
 });
 
-function Player(name,pos,phy,def,sho){
-    this.name = name;
-    this.pos = pos;
-    this.phy = phy;
-    this.def = def;
-    this.sho = sho;
-    this.createCard = function(){
-        let div = document.createElement('div');
-        return div;
-    };
-}
-
-Players = [];
-console.log(Players);
 
 addForm.addEventListener('submit',function(event){
     event.preventDefault();
@@ -55,10 +41,18 @@ addForm.addEventListener('submit',function(event){
         var sho = SHO.value;
     }
     if(name && pos && phy && def && sho){
-        var player = new Player(name,pos,phy,def,sho);
-        Players.push(player);
+        let player = new Player(name,pos,phy,def,sho);
+        let res = myTeam.addPlayer(player); 
+        if(res != 1) {
+            errorMsg.innerText = res;
+            errorMsg.classList.add('text-red-600');
+        }else{
+            myModal.classList.toggle('invisible');
+            document.body.classList.toggle('overflow-hidden');
+            resetForm(addForm);
+        }
     }
-    console.log(Players);
+    console.log(myTeam);
 })
 
 
@@ -89,7 +83,7 @@ function resetForm(form){
 
     SHO.classList.remove('border-green-600','outline-none','border-red-600','border-2');
     if(SHO.nextElementSibling) SHO.nextElementSibling.remove();
-
+    if(errorMsg.innerText != "") errorMsg.innerText = "";  
     form.reset();
 }
 
@@ -158,3 +152,91 @@ function radioInputValidation(container,input,error){
         return 0;
     }
 }
+
+
+
+function Player(name,pos,phy,def,sho){
+    this.id = new Date().getTime();
+    this.name = name;
+    this.pos = pos;
+    this.phy = phy;
+    this.def = def;
+    this.sho = sho;
+    this.createCard = function(){
+        let div = document.createElement('div');
+        div.classList = 'max-w-sm rounded overflow-hidden shadow-lg bg-black';
+        div.innerHTML =`
+                <div class="px-6 py-6">
+                    <div class="font-bold text-xl mb-2 text-center text-white">J${this.name}</div>
+                    <p class="text-white text-center">Position: <span class="font-semibold">${this.pos}</span></p>
+                    <p class="text-white text-center">Status: <span class="font-semibold">Main</span></p>
+                </div>
+            
+                <!-- Player Stats -->
+                <div class="px-12 py-4 grid grid-cols-3 gap-4 text-white">
+                    <!-- Physical Stats -->
+                    <div class="text-center" >
+                        <h3 class="text-lg font-semibold">PHY</h3>
+                        <p class="text-xl">${this.phy}</p>
+                    </div>
+            
+                    <!-- Defend Stats -->
+                    <div class="text-center">
+                        <h3 class="text-lg font-semibold">DEF</h3>
+                        <p class="text-xl">${this.def}</p>
+                    </div>
+            
+                    <!-- Shoot Stats -->
+                    <div class="text-center">
+                        <h3 class="text-lg font-semibold">SHO</h3>
+                        <p class="text-xl">${this.sho}</p>
+                    </div>
+                </div>
+        `;
+        return div;
+    };
+}
+
+class Team {
+    constructor() {
+        this.players = [];
+        this.formation = "4-3-3";
+    }
+    addPlayer(player){
+        if(this.players.length >= 16){
+            return "Team full";
+        }else if(this.players.length > 0){
+            for(let el of this.players){
+                if(el.pos === player.pos){
+                    return "Position already full!";
+                }
+            }
+            this.players.push(player);
+            return 1;
+        }else{
+            this.players.push(player);
+            return 1;
+        }
+    }
+    removePlayer(player){
+        const length = this.players.length;
+        this.players = this.players.filter(el => el.id != player.id); 
+        if(length > this.players.length){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+    editPlayer(playerID,player){
+        for(let el of this.players){
+            if(el.id == playerID){
+                el = player;
+                return 1;
+            }
+        }
+        return 0;
+    }
+    
+}
+const myTeam = new Team();
+console.log(myTeam)
