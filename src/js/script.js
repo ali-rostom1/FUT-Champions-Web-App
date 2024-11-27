@@ -212,9 +212,11 @@ class Team {
                 }
             }
             this.players.push(player);
+            this.saveToLS();
             return 1;
         }else{
             this.players.push(player);
+            this.saveToLS();
             return 1;
         }
     }
@@ -222,6 +224,7 @@ class Team {
         const length = this.players.length;
         this.players = this.players.filter(el => el.id != player.id); 
         if(length > this.players.length){
+            this.saveToLS();
             return 1;
         }else{
             return 0;
@@ -231,12 +234,19 @@ class Team {
         for(let el of this.players){
             if(el.id == playerID){
                 el = player;
+                this.saveToLS();
                 return 1;
             }
         }
         return 0;
     }
-    
+    saveToLS(){
+        const data = {
+            players : this.players,
+            formation : this.formation,
+        };
+        localStorage.setItem("Team",JSON.stringify(data));
+    }
 }
 const myTeam = new Team();
 console.log(myTeam)
