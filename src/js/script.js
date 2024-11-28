@@ -83,7 +83,8 @@ function resetForm(form){
 
     SHO.classList.remove('border-green-600','outline-none','border-red-600','border-2');
     if(SHO.nextElementSibling) SHO.nextElementSibling.remove();
-    if(errorMsg.innerText != "") errorMsg.innerText = "";  
+    
+    errorMsg.innerText = "";
     form.reset();
 }
 
@@ -162,65 +163,38 @@ function Player(name,pos,phy,def,sho){
     this.phy = phy;
     this.def = def;
     this.sho = sho;
-    this.createCard = function(){
-        let div = document.createElement('div');
-        div.classList = 'max-w-sm rounded overflow-hidden shadow-lg bg-black';
-        div.innerHTML =`
-                <div class="px-6 py-6">
-                    <div class="font-bold text-xl mb-2 text-center text-white">J${this.name}</div>
-                    <p class="text-white text-center">Position: <span class="font-semibold">${this.pos}</span></p>
-                    <p class="text-white text-center">Status: <span class="font-semibold">Main</span></p>
-                </div>
-            
-                <!-- Player Stats -->
-                <div class="px-12 py-4 grid grid-cols-3 gap-4 text-white">
-                    <!-- Physical Stats -->
-                    <div class="text-center" >
-                        <h3 class="text-lg font-semibold">PHY</h3>
-                        <p class="text-xl">${this.phy}</p>
-                    </div>
-            
-                    <!-- Defend Stats -->
-                    <div class="text-center">
-                        <h3 class="text-lg font-semibold">DEF</h3>
-                        <p class="text-xl">${this.def}</p>
-                    </div>
-            
-                    <!-- Shoot Stats -->
-                    <div class="text-center">
-                        <h3 class="text-lg font-semibold">SHO</h3>
-                        <p class="text-xl">${this.sho}</p>
-                    </div>
-                </div>
-        `;
-        return div;
-    };
 }
 
 class Team {
     constructor() {
         this.players = [];
         this.formation = "4-3-3";
-        this.attCount = 0;
-        this.defCount = 0;
-        this.midCount = 0;
-        this.gkCount = 0;
+    }
+    renderPlayers(){
+        for(let el of this.players){
+            playerCardsContainer.appendChild(this.createCard(el));
+        }
+        this.updatePlayersCounter();
     }
     addPlayer(player){
         this.loadFromLS();
         if(this.players.length >= 11){
             return "Team full";
-        }else if(this.players.length > 0){
+        }else{
             for(let el of this.players){
                 if(el.pos === player.pos){
+                    if(el.pos === "CM" && this.getCMCount()<2){
+                        this.players.push(player);
+                        this.saveToLS();
+                        return 1;
+                    }else if(el.pos === "CB" && this.getCBCount()<2){
+                        this.players.push(player);
+                        this.saveToLS();
+                        return 1;
+                    }
                     return "Position already full!";
                 }
             }
-            this.players.push(player);
-            this.saveToLS();
-            return 1;
-        }else{
-            player.createCard();
             this.players.push(player);
             this.saveToLS();
             return 1;
@@ -261,28 +235,66 @@ class Team {
             this.players = data.players;
             this.formation = data.formation;
         }
-        this.updateCounters();
     }
-    updateCounters(){
+    getCMCount(){
+        let count=0;
         for(let el of this.players){
-            if(el.pos === 'ATT'){
-                this.attCount++;
-            }
-            else if(el.pos === 'DEF'){
-                this.defCount++;
-            }
-            else if(el.pos === 'MID'){
-                this.midCount++;
-            }else{
-                this.gkCount++;
+            if(el.pos ==="CM"){
+                count++;
             }
         }
+        return count;
+    }
+    getCBCount(){
+        let count=0;
+        for(let el of this.players){
+            if(el.pos ==="CB"){
+                count++;
+            }
+        }
+        return count;
+    }
+    updatePlayersCounter(){
+        playerCount.innerText = `${this.players.length} Players shown`;
+    }
+    createCard(player){
+        let div = document.createElement('div');
+        div.classList = 'max-w-sm rounded overflow-hidden shadow-lg bg-black mb-10';
+        div.innerHTML =`
+                <div class="px-6 py-6">
+                    <div class="font-bold text-xl mb-2 text-center text-white">J${player.name}</div>
+                    <p class="text-white text-center">Position: <span class="font-semibold">${player.pos}</span></p>
+                    <p class="text-white text-center">Status: <span class="font-semibold">Main</span></p>
+                </div>
+            
+                <!-- Player Stats -->
+                <div class="px-12 py-4 grid grid-cols-3 gap-4 text-white">
+                    <!-- Physical Stats -->
+                    <div class="text-center" >
+                        <h3 class="text-lg font-semibold">PHY</h3>
+                        <p class="text-xl">${player.phy}</p>
+                    </div>
+            
+                    <!-- Defend Stats -->
+                    <div class="text-center">
+                        <h3 class="text-lg font-semibold">DEF</h3>
+                        <p class="text-xl">${player.def}</p>
+                    </div>
+            
+                    <!-- Shoot Stats -->
+                    <div class="text-center">
+                        <h3 class="text-lg font-semibold">SHO</h3>
+                        <p class="text-xl">${player.sho}</p>
+                    </div>
+                </div>
+        `;
+        return div;
     }
 }
+
 const myTeam = new Team();
+myTeam.loadFromLS();
+myTeam.renderPlayers();
 console.log(myTeam);
-
-
-
 
 
