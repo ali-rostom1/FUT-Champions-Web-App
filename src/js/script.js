@@ -171,10 +171,12 @@ class Team {
         this.formation = "4-3-3";
     }
     renderPlayers(){
+        playerCardsContainer.innerHTML = "";
         for(let el of this.players){
             playerCardsContainer.appendChild(this.createCard(el));
         }
         this.updatePlayersCounter();
+        this.delBtnsRender();
     }
     addPlayer(player){
         this.loadFromLS();
@@ -201,7 +203,6 @@ class Team {
         }
     }
     removePlayer(player){
-        this.loadFromLS();
         const length = this.players.length;
         this.players = this.players.filter(el => el.id != player.id); 
         if(length > this.players.length){
@@ -266,7 +267,10 @@ class Team {
                     <p class="text-white text-center">Position: <span class="font-semibold">${player.pos}</span></p>
                     <p class="text-white text-center">Status: <span class="font-semibold">Main</span></p>
                 </div>
-            
+                <div class="flex justify-center gap-6">
+                    <button class="bg-red-500 text-white px-2 rounded-md" id="${player.id}-del">DEL</button>
+                    <button class="bg-sky-600 text-white px-2 rounded-md" id="${player.id}-edit">EDIT</button>
+                </div>
                 <!-- Player Stats -->
                 <div class="px-12 py-4 grid grid-cols-3 gap-4 text-white">
                     <!-- Physical Stats -->
@@ -274,7 +278,7 @@ class Team {
                         <h3 class="text-lg font-semibold">PHY</h3>
                         <p class="text-xl">${player.phy}</p>
                     </div>
-            
+                
                     <!-- Defend Stats -->
                     <div class="text-center">
                         <h3 class="text-lg font-semibold">DEF</h3>
@@ -290,6 +294,27 @@ class Team {
         `;
         return div;
     }
+    delBtnsRender(){
+        this.players.forEach(el => {
+            let delbtn = `${el.id}-del` ;
+            delbtn = document.getElementById(delbtn);
+            delbtn.onclick = () =>{
+                this.removePlayer(el);
+                this.renderPlayers();
+            }
+        });
+    }
+    editBtnsRender(){
+        this.players.forEach(el => {
+            let editBtn = `${el.id}-edit` ;
+            editBtn = document.getElementById(editBtn);
+            editBtn.onclick = () =>{
+                myModal.classList.toggle('invisible');
+                document.body.classList.toggle('overflow-hidden');
+            }
+        });
+    }
+
 }
 
 const myTeam = new Team();
