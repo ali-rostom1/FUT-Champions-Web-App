@@ -64,7 +64,7 @@
             <div class="bg-white w-full sm:w-96 md:w-1/3 p-6 rounded-lg mx-auto">
                 
                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-2xl font-semibold text-gray-800">ADD PLAYER</h2>
+                    <h2 id="formHeading" class="text-2xl font-semibold text-gray-800">ADD PLAYER</h2>
                     <button id="closeModalBtn" class="text-gray-600 hover:text-gray-900 focus:outline-none"><i class="fa-solid fa-x"></i></button>
                 </div>
 
@@ -115,13 +115,73 @@
                     </div>
                     <div class="grid">
                         <div id="errorMsg"></div>
-                        <button type="submit" class="bg-[#0073e6] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full justify-self-end">Submit</button>
+                        <button id="formBtn" type="submit" class="bg-[#0073e6] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full justify-self-end">Submit</button>
                     </div>
                 </form>
             </div>
         </div>
         <div id="playerCardsContainer" class="container flex justify-between items-center flex-wrap max-w-screen-xl mx-auto py-4 px-4">
             
+        </div>
+        <div id="editModal" class="fixed invisible inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50 ">
+            <div class="bg-white w-full sm:w-96 md:w-1/3 p-6 rounded-lg mx-auto">
+                
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-2xl font-semibold text-gray-800">EDIT PLAYER</h2>
+                    <button id="closeEditModalBtn" class="text-gray-600 hover:text-gray-900 focus:outline-none"><i class="fa-solid fa-x"></i></button>
+                </div>
+
+                <form id="editForm">
+                    <div class="mb-4">
+                        <label for="name" class="block text-gray-700 font-medium mb-2">Name</label>
+                        <input type="text" id="nameInput2" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-md" placeholder="Ali ...">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-medium mb-2">Position</label>
+                        <div id="radioContainer2" class="flex gap-4 flex-wrap">
+                            <input type="radio" class="hidden" name="Position2" id="gk2" value="GK"/>
+                            <label class="py-2 px-3 border border-gray-300 rounded-3xl" for="gk2">GK</label>
+                            <input type="radio" class="hidden" name="Position2" id="cb2" value="CB"/>
+                            <label class="py-2 px-3 border border-gray-300 rounded-3xl" for="cb2">CB</label>
+                            <input type="radio" class="hidden" name="Position2" id="rb2" value="RB"/>
+                            <label class="py-2 px-3 border border-gray-300 rounded-3xl" for="rb2">RB</label>
+                            <input type="radio" class="hidden" name="Position2" id="lb2" value="LB"/>
+                            <label class="py-2 px-3 border border-gray-300 rounded-3xl" for="lb2">LB</label>
+                            <input type="radio" class="hidden" name="Position2" id="cm2" value="CM"/>
+                            <label class="py-2 px-3 border border-gray-300 rounded-3xl" for="cm2">CM</label>
+                            <input type="radio" class="hidden" name="Position2" id="cdm2" value="CDM"/>
+                            <label class="py-2 px-3 border border-gray-300 rounded-3xl" for="cdm2">CDM</label>
+                            <input type="radio" class="hidden" name="Position2" id="st2" value="ST"/>
+                            <label class="py-2 px-3 border border-gray-300 rounded-3xl" for="st2">ST</label>
+                            <input type="radio" class="hidden" name="Position2" id="rw2" value="RW"/>
+                            <label class="py-2 px-3 border border-gray-300 rounded-3xl" for="rw2">RW</label>
+                            <input type="radio" class="hidden" name="Position2" id="lw2" value="LW"/>
+                            <label class="py-2 px-3 border border-gray-300 rounded-3xl" for="lw2">LW</label>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <span class="block text-gray-700 font-medium mb-2">Stats</span>
+                        <div class="w-full flex justify-between">
+                            <div class="w-[30%] flex flex-col">
+                                <label for="phy2" class="block text-gray-700 font-medium mb-2 text-center">PHY</span>
+                                <input type="text" id="PHY2" name="stats" class="w-full px-4 py-2 border border-gray-300 rounded-md" placeholder="1-100"/>
+                            </div>
+                            <div class="w-[30%] flex flex-col">
+                                <label for="DEF2" class="block text-gray-700 font-medium mb-2 text-center">DEF</span>
+                                <input type="text" id="DEF2" name="stats" class="w-full px-4 py-2 border border-gray-300 rounded-md" placeholder="1-100"/>
+                            </div>
+                            <div class="w-[30%] flex flex-col items-center">
+                                <label for="SHO2" class="block text-gray-700 font-medium mb-2 text-center">SHO</span>
+                                <input type="text" id="SHO2" name="stats" class="w-full px-4 py-2 border border-gray-300 rounded-md" placeholder="1-100"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div id="errorMsg2"></div>
+                        <button id="editFormBtn" type="submit" class="bg-[#0073e6] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full justify-self-end">Submit</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </main>
 

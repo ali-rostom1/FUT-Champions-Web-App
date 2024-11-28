@@ -3,7 +3,11 @@
 mobileMenuToggle.addEventListener('click', function (){
     mobileMenu.classList.toggle('hidden');
 });
-
+closeEditModalBtn.addEventListener('click', function(){
+    editModal.classList.toggle('invisible');
+    document.body.classList.toggle('overflow-hidden');
+    resetForm(editForm);
+});
 closeModalBtn.addEventListener('click', function(){
     myModal.classList.toggle('invisible');
     document.body.classList.toggle('overflow-hidden');
@@ -177,6 +181,7 @@ class Team {
         }
         this.updatePlayersCounter();
         this.delBtnsRender();
+        this.editBtnsRender();
     }
     addPlayer(player){
         this.loadFromLS();
@@ -198,6 +203,7 @@ class Team {
                 }
             }
             this.players.push(player);
+            this.renderPlayers();
             this.saveToLS();
             return 1;
         }
@@ -212,11 +218,15 @@ class Team {
             return 0;
         }
     }
-    editPlayer(playerID,player){
+    editPlayer(playerID,name,pos,phy,def,sho){
         this.loadFromLS();
         for(let el of this.players){
             if(el.id == playerID){
-                el = player;
+                el.name = name;
+                el.pos = pos;
+                el.phy = phy;
+                el.def = def;
+                el.sho = sho;
                 this.saveToLS();
                 return 1;
             }
@@ -263,7 +273,7 @@ class Team {
         div.classList = 'max-w-sm rounded overflow-hidden shadow-lg bg-black mb-10';
         div.innerHTML =`
                 <div class="px-6 py-6">
-                    <div class="font-bold text-xl mb-2 text-center text-white">J${player.name}</div>
+                    <div class="font-bold text-xl mb-2 text-center text-white">${player.name}</div>
                     <p class="text-white text-center">Position: <span class="font-semibold">${player.pos}</span></p>
                     <p class="text-white text-center">Status: <span class="font-semibold">Main</span></p>
                 </div>
@@ -308,13 +318,60 @@ class Team {
         this.players.forEach(el => {
             let editBtn = `${el.id}-edit` ;
             editBtn = document.getElementById(editBtn);
-            editBtn.onclick = () =>{
-                myModal.classList.toggle('invisible');
+            editBtn.onclick = () => {
+                editModal.classList.toggle('invisible');
                 document.body.classList.toggle('overflow-hidden');
+
+                let radioInputs = document.querySelectorAll('input[name="Position2"]');
+                dynamicNameFormValidation(nameInput2);
+                dynamicRadioFormValidation(radioContainer,radioInputs);
+                dynamicStatsFormValidation(PHY2);
+                dynamicStatsFormValidation(DEF2);
+                dynamicStatsFormValidation(SHO2);
+
+                nameInput2.value = el.name;
+                radioInputs.forEach(radio => {
+                    if(radio.value == el.pos){
+                        radio.checked = true;
+                    }
+                })
+                PHY2.value = el.phy;
+                DEF2.value = el.def;
+                SHO2.value = el.sho;
+                
+                editForm.addEventListener('submit', (event) => {
+                    event.preventDefault();
+                    console.log("hello")
+                    if(inputValidation(nameInput2,"5 letters and more only !")) {
+                        var name = nameInput2.value;
+                    }
+                    let radioInput = document.querySelector('input[name="Position2"]:checked');
+                    if(radioInputValidation(radioContainer2,radioInput,"Check one of the above !")){
+                        var pos = radioInput.value;
+                    }
+                    if(inputValidation(PHY2,"1 TO 100 !")) {
+                        var phy = PHY2.value;
+                    }
+                    if(inputValidation(DEF2,"1 TO 100 !")) {
+                        var def = DEF2.value;
+                    }
+                    if(inputValidation(SHO2,"1 TO 100 !")) {
+                        var sho = SHO2.value;
+                    }
+                    if(name && pos && phy && def && sho){
+                        this.editPlayer(el.id,name,pos,phy,def,sho);
+                        console.log(el);
+                        this.renderPlayers();
+
+
+                        editModal.classList.toggle('invisible');
+                        document.body.classList.toggle('overflow-hidden');
+                        resetForm(editForm);
+                    }
+                });
             }
         });
     }
-
 }
 
 const myTeam = new Team();
