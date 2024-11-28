@@ -201,8 +201,13 @@ class Team {
     constructor() {
         this.players = [];
         this.formation = "4-3-3";
+        this.attCount = 0;
+        this.defCount = 0;
+        this.midCount = 0;
+        this.gkCount = 0;
     }
     addPlayer(player){
+        this.loadFromLS();
         if(this.players.length >= 11){
             return "Team full";
         }else if(this.players.length > 0){
@@ -215,12 +220,14 @@ class Team {
             this.saveToLS();
             return 1;
         }else{
+            player.createCard();
             this.players.push(player);
             this.saveToLS();
             return 1;
         }
     }
     removePlayer(player){
+        this.loadFromLS();
         const length = this.players.length;
         this.players = this.players.filter(el => el.id != player.id); 
         if(length > this.players.length){
@@ -231,6 +238,7 @@ class Team {
         }
     }
     editPlayer(playerID,player){
+        this.loadFromLS();
         for(let el of this.players){
             if(el.id == playerID){
                 el = player;
@@ -247,6 +255,34 @@ class Team {
         };
         localStorage.setItem("Team",JSON.stringify(data));
     }
+    loadFromLS(){
+        const data = JSON.parse(localStorage.getItem("Team"));
+        if(data){
+            this.players = data.players;
+            this.formation = data.formation;
+        }
+        this.updateCounters();
+    }
+    updateCounters(){
+        for(let el of this.players){
+            if(el.pos === 'ATT'){
+                this.attCount++;
+            }
+            else if(el.pos === 'DEF'){
+                this.defCount++;
+            }
+            else if(el.pos === 'MID'){
+                this.midCount++;
+            }else{
+                this.gkCount++;
+            }
+        }
+    }
 }
 const myTeam = new Team();
-console.log(myTeam)
+console.log(myTeam);
+
+
+
+
+
