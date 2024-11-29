@@ -40,7 +40,7 @@
         </div>
     
         <!-- Mobile Menu -->
-        <div class="absolute top-0 left-0 w-full h-full bg-black hidden flex-col md:hidden" id="mobileMenu">
+        <div class="absolute top-0 left-0 w-full h-full bg-black hidden flex-col md:hidden z-50" id="mobileMenu">
             <ul class="flex flex-col items-center justify-center gap-4 p-4 h-full">
                 <li>
                     <a href="index.html" class="text-white hover:text-gray-300 transition duration-300">
@@ -71,55 +71,25 @@
                         <img src="/src/assets/images/terrain.jpg" alt="Terrain" class="col-span-12 row-span-12 shadow-2xl rounded-3xl w-full">
 
                         <!--central cards-->
-                        <div class="absolute top-[40%] left-[43%]">
+                        <div id="terCDM" class="absolute top-[40%] left-[43%]">
                             <div class="bg-white shadow-lg rounded-lg border border-gray-200 p-2 text-center w-28">
                                 <div class="text-end mb-1">
                                     <span class=" bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">
                                         CDM
                                     </span>
                                 </div>
-                                <h3 class="text-md font-semibold text-gray-800 mb-2">3</h3>
-                                <div class="grid grid-cols-3 gap-2 text-sm">
-                                    <div class="flex flex-col items-center">
-                                        <span class="font-bold text-gray-700">PHY</span>
-                                        <span class="text-blue-600">80</span>
-                                    </div>
-                                    <div class="flex flex-col items-center">
-                                        <span class="font-bold text-gray-700">DEF</span>
-                                        <span class="text-blue-600">95</span>
-                                    </div>
-                                    <div class="flex flex-col items-center">
-                                        <span class="font-bold text-gray-700">SHO</span>
-                                        <span class="text-blue-600">50</span>
-                                    </div>
-                                </div>
                             </div>
                         </div>
-                        <div class="absolute top-[30%] left-[10%]">
+                        <div id ="terCMl" class="absolute top-[30%] left-[10%]">
                             <div class="bg-white shadow-lg rounded-lg border border-gray-200 p-2 text-center w-28">
                                 <div class="text-end mb-1">
                                     <span class=" bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">
                                         CM
                                     </span>
                                 </div>
-                                <h3 class="text-md font-semibold text-gray-800 mb-2">2</h3>
-                                <div class="grid grid-cols-3 gap-2 text-sm">
-                                    <div class="flex flex-col items-center">
-                                        <span class="font-bold text-gray-700">PHY</span>
-                                        <span class="text-blue-600">80</span>
-                                    </div>
-                                    <div class="flex flex-col items-center">
-                                        <span class="font-bold text-gray-700">DEF</span>
-                                        <span class="text-blue-600">95</span>
-                                    </div>
-                                    <div class="flex flex-col items-center">
-                                        <span class="font-bold text-gray-700">SHO</span>
-                                        <span class="text-blue-600">50</span>
-                                    </div>
-                                </div>
                             </div>
                         </div>
-                        <div class="absolute top-[30%] left-[75%]">
+                        <div id="terCMr" class="absolute top-[30%] left-[75%]">
                             <!-- Central Back Card -->
                             <div class="bg-white shadow-lg rounded-lg border border-gray-200 p-2 text-center w-28">
                                 <div class="text-end mb-1">
@@ -127,215 +97,80 @@
                                         CM
                                     </span>
                                 </div>
-                                <h3 class="text-md font-semibold text-gray-800 mb-2">2</h3>
-                                <div class="grid grid-cols-3 gap-2 text-sm">
-                                    <div class="flex flex-col items-center">
-                                        <span class="font-bold text-gray-700">PHY</span>
-                                        <span class="text-blue-600">80</span>
-                                    </div>
-                                    <div class="flex flex-col items-center">
-                                        <span class="font-bold text-gray-700">DEF</span>
-                                        <span class="text-blue-600">95</span>
-                                    </div>
-                                    <div class="flex flex-col items-center">
-                                        <span class="font-bold text-gray-700">SHO</span>
-                                        <span class="text-blue-600">50</span>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <!--def cards-->
-                        <div class="absolute top-[60%] left-[5%]">
+                        <div id="terLB" class="absolute top-[60%] left-[5%]">
                             <div class="bg-white shadow-lg rounded-lg border border-gray-200 p-2 text-center w-28">
                                 <div class="text-end mb-1">
                                     <span class=" bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
                                         LB
                                     </span>
                                 </div>
-                                <h3 class="text-md font-semibold text-gray-800 mb-2">2</h3>
-                                <div class="grid grid-cols-3 gap-2 text-sm">
-                                    <div class="flex flex-col items-center">
-                                        <span class="font-bold text-gray-700">PHY</span>
-                                        <span class="text-blue-600">80</span>
-                                    </div>
-                                    <div class="flex flex-col items-center">
-                                        <span class="font-bold text-gray-700">DEF</span>
-                                        <span class="text-blue-600">95</span>
-                                    </div>
-                                    <div class="flex flex-col items-center">
-                                        <span class="font-bold text-gray-700">SHO</span>
-                                        <span class="text-blue-600">50</span>
-                                    </div>
-                                </div>
                             </div>
                         </div>
-                        <div class="absolute top-[63%] left-[30%]">
+                        <div id="terCBl" class="absolute top-[63%] left-[30%]">
                             <div class="bg-white shadow-lg rounded-lg border border-gray-200 p-2 text-center w-28">
                                 <div class="text-end mb-1">
                                     <span class=" bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
                                         CB
                                     </span>
                                 </div>
-                                <h3 class="text-md font-semibold text-gray-800 mb-2">2</h3>
-                                <div class="grid grid-cols-3 gap-2 text-sm">
-                                    <div class="flex flex-col items-center">
-                                        <span class="font-bold text-gray-700">PHY</span>
-                                        <span class="text-blue-600">80</span>
-                                    </div>
-                                    <div class="flex flex-col items-center">
-                                        <span class="font-bold text-gray-700">DEF</span>
-                                        <span class="text-blue-600">95</span>
-                                    </div>
-                                    <div class="flex flex-col items-center">
-                                        <span class="font-bold text-gray-700">SHO</span>
-                                        <span class="text-blue-600">50</span>
-                                    </div>
-                                </div>
                             </div>
                         </div>
-                        <div class="absolute top-[63%] left-[55%]">
+                        <div id="terCBr" class="absolute top-[63%] left-[55%]">
                             <div class="bg-white shadow-lg rounded-lg border border-gray-200 p-2 text-center w-28">
                                 <div class="text-end mb-1">
                                     <span class=" bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
                                         CB
                                     </span>
                                 </div>
-                                <h3 class="text-md font-semibold text-gray-800 mb-2">2</h3>
-                                <div class="grid grid-cols-3 gap-2 text-sm">
-                                    <div class="flex flex-col items-center">
-                                        <span class="font-bold text-gray-700">PHY</span>
-                                        <span class="text-blue-600">80</span>
-                                    </div>
-                                    <div class="flex flex-col items-center">
-                                        <span class="font-bold text-gray-700">DEF</span>
-                                        <span class="text-blue-600">95</span>
-                                    </div>
-                                    <div class="flex flex-col items-center">
-                                        <span class="font-bold text-gray-700">SHO</span>
-                                        <span class="text-blue-600">50</span>
-                                    </div>
-                                </div>
                             </div>
                         </div>
-                        <div class="absolute top-[60%] left-[80%]">
+                        <div id="terRB" class="absolute top-[60%] left-[80%]">
                             <div class="bg-white shadow-lg rounded-lg border border-gray-200 p-2 text-center w-28">
                                 <div class="text-end mb-1">
                                     <span class=" bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
                                         RB
                                     </span>
                                 </div>
-                                <h3 class="text-md font-semibold text-gray-800 mb-2">2</h3>
-                                <div class="grid grid-cols-3 gap-2 text-sm">
-                                    <div class="flex flex-col items-center">
-                                        <span class="font-bold text-gray-700">PHY</span>
-                                        <span class="text-blue-600">80</span>
-                                    </div>
-                                    <div class="flex flex-col items-center">
-                                        <span class="font-bold text-gray-700">DEF</span>
-                                        <span class="text-blue-600">95</span>
-                                    </div>
-                                    <div class="flex flex-col items-center">
-                                        <span class="font-bold text-gray-700">SHO</span>
-                                        <span class="text-blue-600">50</span>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <!--attack cards-->
-                        <div class="absolute top-[10%] left-[10%]">
+                        <div id="terLW" class="absolute top-[10%] left-[10%]">
                             <div class="bg-white shadow-lg rounded-lg border border-gray-200 p-2 text-center w-28">
                                 <div class="text-end mb-1">
                                     <span class=" bg-cyan-500 text-white text-xs font-bold px-2 py-1 rounded-full">
                                         LW
                                     </span>
                                 </div>
-                                <h3 class="text-md font-semibold text-gray-800 mb-2">2</h3>
-                                <div class="grid grid-cols-3 gap-2 text-sm">
-                                    <div class="flex flex-col items-center">
-                                        <span class="font-bold text-gray-700">PHY</span>
-                                        <span class="text-blue-600">80</span>
-                                    </div>
-                                    <div class="flex flex-col items-center">
-                                        <span class="font-bold text-gray-700">DEF</span>
-                                        <span class="text-blue-600">95</span>
-                                    </div>
-                                    <div class="flex flex-col items-center">
-                                        <span class="font-bold text-gray-700">SHO</span>
-                                        <span class="text-blue-600">50</span>
-                                    </div>
-                                </div>
                             </div>
                         </div>
-                        <div class="absolute top-[10%] left-[75%]">
+                        <div id="terRW" class="absolute top-[10%] left-[75%]">
                             <div class="bg-white shadow-lg rounded-lg border border-gray-200 p-2 text-center w-28">
                                 <div class="text-end mb-1">
                                     <span class=" bg-cyan-500 text-white text-xs font-bold px-2 py-1 rounded-full">
                                         RW
                                     </span>
                                 </div>
-                                <h3 class="text-md font-semibold text-gray-800 mb-2">2</h3>
-                                <div class="grid grid-cols-3 gap-2 text-sm">
-                                    <div class="flex flex-col items-center">
-                                        <span class="font-bold text-gray-700">PHY</span>
-                                        <span class="text-blue-600">80</span>
-                                    </div>
-                                    <div class="flex flex-col items-center">
-                                        <span class="font-bold text-gray-700">DEF</span>
-                                        <span class="text-blue-600">95</span>
-                                    </div>
-                                    <div class="flex flex-col items-center">
-                                        <span class="font-bold text-gray-700">SHO</span>
-                                        <span class="text-blue-600">50</span>
-                                    </div>
-                                </div>
                             </div>
                         </div>
-                        <div class="absolute top-[5%] left-[43%]">
+                        <div  id="terST" class="absolute top-[5%] left-[43%]">
                             <div class="bg-white shadow-lg rounded-lg border border-gray-200 p-2 text-center w-28">
                                 <div class="text-end mb-1">
                                     <span class=" bg-cyan-500 text-white text-xs font-bold px-2 py-1 rounded-full">
                                         ST
                                     </span>
                                 </div>
-                                <h3 class="text-md font-semibold text-gray-800 mb-2">2</h3>
-                                <div class="grid grid-cols-3 gap-2 text-sm">
-                                    <div class="flex flex-col items-center">
-                                        <span class="font-bold text-gray-700">PHY</span>
-                                        <span class="text-blue-600">80</span>
-                                    </div>
-                                    <div class="flex flex-col items-center">
-                                        <span class="font-bold text-gray-700">DEF</span>
-                                        <span class="text-blue-600">95</span>
-                                    </div>
-                                    <div class="flex flex-col items-center">
-                                        <span class="font-bold text-gray-700">SHO</span>
-                                        <span class="text-blue-600">50</span>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <!--Goalkeeper card-->
-                        <div class="absolute top-[82%] left-[43%]">
+                        <div id="terGK" class="absolute top-[82%] left-[43%]">
                             <div class="bg-white shadow-lg rounded-lg border border-gray-200 p-2 text-center w-28">
                                 <div class="text-end mb-1">
                                     <span class=" bg-black text-white text-xs font-bold px-2 py-1 rounded-full">
                                         GK
                                     </span>
-                                </div>
-                                <h3 class="text-md font-semibold text-gray-800 mb-2">2</h3>
-                                <div class="grid grid-cols-3 gap-2 text-sm">
-                                    <div class="flex flex-col items-center">
-                                        <span class="font-bold text-gray-700">PHY</span>
-                                        <span class="text-blue-600">80</span>
-                                    </div>
-                                    <div class="flex flex-col items-center">
-                                        <span class="font-bold text-gray-700">DEF</span>
-                                        <span class="text-blue-600">95</span>
-                                    </div>
-                                    <div class="flex flex-col items-center">
-                                        <span class="font-bold text-gray-700">SHO</span>
-                                        <span class="text-blue-600">50</span>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -411,6 +246,6 @@
         
     </main>
 
-    <script src="/src/js/script.js"></script>
+    <script src="/src/js/script.js" type="module"></script>
 </body>
 </html>
