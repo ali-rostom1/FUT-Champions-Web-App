@@ -7,7 +7,7 @@ export function Player(name,pos,phy,def,sho){
     this.phy = phy;
     this.def = def;
     this.sho = sho;
-    this.status = 'bench';
+    this.status = 'Bench';
 }
 
  export class Team {
@@ -27,9 +27,7 @@ export function Player(name,pos,phy,def,sho){
     renderPlayersInTerrain(){
         let CBcount = 0;
         let CMcount = 0;
-        let newArr = this.players.filter((el)=> el.status ==='Main');
-        console.log(newArr);
-        console.log(this.players);
+        let newArr = this.players.filter((el) => el.status ==='Main');
         newArr.forEach((el)=>{
             switch(el.pos){
                 case "LW":
@@ -74,12 +72,27 @@ export function Player(name,pos,phy,def,sho){
             }
         })
     }
+    renderBenchPlayers(){
+        playersContainer.innerHTML="";
+        this.players.forEach((el)=>{
+            if(el.status ==="Bench"){
+                playersContainer.appendChild(this.createBenchCard(el));
+            }
+        })
+    }
+    renderBenchPlayersBasedOnPos(pos){
+        playersContainer.innerHTML = "";
+        this.players.forEach((el)=>{
+            if(el.status ==="Bench" && el.pos=== pos){
+                playersContainer.appendChild(this.createBenchCard(el));
+            }
+        });
+    }
     createTerrainCardAppend(player,terpos){
         let container = terpos.children[0];
-        console.log(container);
         let div = document.createElement('div');
                     div.innerHTML = `
-                                    <h3 class="text-md font-semibold text-gray-800 mb-2">${player.name}</h3>
+                                    <h3 class="text-sm font-semibold text-gray-800 mb-2">${player.name}</h3>
                                 <div class="grid grid-cols-3 gap-2 text-sm">
                                     <div class="flex flex-col items-center">
                                         <span class="font-bold text-gray-700">PHY</span>
@@ -175,7 +188,7 @@ export function Player(name,pos,phy,def,sho){
                 <div class="px-6 py-6">
                     <div class="font-bold text-xl mb-2 text-center text-white">${player.name}</div>
                     <p class="text-white text-center">Position: <span class="font-semibold">${player.pos}</span></p>
-                    <p class="text-white text-center">Status: <span class="font-semibold">Main</span></p>
+                    <p class="text-white text-center">Status: <span class="font-semibold">${player.status}</span></p>
                 </div>
                 <div class="flex justify-center gap-6">
                     <button class="bg-red-500 text-white px-2 rounded-md" id="${player.id}-del">DEL</button>
@@ -202,6 +215,40 @@ export function Player(name,pos,phy,def,sho){
                     </div>
                 </div>
         `;
+        return div;
+    }
+    createBenchCard(player){
+        let div = document.createElement('div');
+        div.classList = 'w-[full]] rounded-xl shadow-lg bg-black flex justify-center items-center mb-4 max-h-24';
+        div.innerHTML = `<div class="px-6 py-6">
+                                    <div class="font-bold text-xl mb-2 text-center text-white">${player.name}</div>
+                                    <p class="text-white text-center">Position: <span class="font-semibold">${player.pos}</span></p>
+                                    <p class="text-white text-center">Status: <span class="font-semibold">${player.status}</span></p>
+                                </div>
+                                <!-- Player Stats -->
+                                <div class="px-12 py-4 grid grid-cols-3 gap-4 text-white">
+                                    <!-- Physical Stats -->
+                                    <div class="text-center" >
+                                        <h3 class="text-lg font-semibold">PHY</h3>
+                                        <p class="text-xl">${player.phy}</p>
+                                    </div>
+                                
+                                    <!-- Defend Stats -->
+                                    <div class="text-center">
+                                        <h3 class="text-lg font-semibold">DEF</h3>
+                                        <p class="text-xl">${player.def}</p>
+                                    </div>
+                            
+                                    <!-- Shoot Stats -->
+                                    <div class="text-center">
+                                        <h3 class="text-lg font-semibold">SHO</h3>
+                                        <p class="text-xl">${player.sho}</p>
+                                    </div>
+                                </div>
+                                <div class="flex justify-center gap-6">
+                                    <button class="bg-red-500 text-white px-2 rounded-md" id="${player.id}-del">DEL</button>
+                                    <button class="bg-sky-600 text-white px-2 rounded-md" id="${player.id}-edit">EDIT</button>
+                                </div>`
         return div;
     }
     delBtnsRender(){
@@ -241,7 +288,6 @@ export function Player(name,pos,phy,def,sho){
                 
                 editForm.addEventListener('submit', (event) => {
                     event.preventDefault();
-                    console.log("hello")
                     if(this.inputValidation(nameInput2,"5 letters and more only !")) {
                         var name = nameInput2.value;
                     }
@@ -260,7 +306,6 @@ export function Player(name,pos,phy,def,sho){
                     }
                     if(name && pos && phy && def && sho){
                         this.editPlayer(el.id,name,pos,phy,def,sho);
-                        console.log(el);
                         this.renderPlayersPage();
 
 
@@ -369,6 +414,7 @@ export function Player(name,pos,phy,def,sho){
         }
     }
     changePlayerStatus(player){
-        player.status = 'Main'
+        player.status = player.status==='Main' ? 'Bench' : 'Main';
     }
+
 }

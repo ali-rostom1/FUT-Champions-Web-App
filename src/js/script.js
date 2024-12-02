@@ -12,21 +12,35 @@ myteam.loadFromLS();
 myteam.renderPlayersInTerrain();
 
 document.querySelectorAll('[id^=ter]').forEach((el)=>{
-    let pos = el.id.length > 5 ? el.id.slice(3,5) : el.id.slice(3);
-    console.log(pos);
+    let pos="";
+    if(el.id[el.id.length-1] === "M"){
+            pos = el.id.slice(3,6);
+            
+    }else pos=el.id.slice(3,5);
     el.addEventListener('click',() => {
-        myModal.classList.toggle('invisible');
+        choiceContainer.classList.toggle('invisible');
         document.body.classList.toggle('overflow-hidden');
-        let radioInputs = document.querySelectorAll('input[name=Position]');
-        radioInputs.forEach((ele)=>{
-            if(ele.value === pos || ele.value === pos + "M"){
-                ele.checked = true;
+        let isEmpty = el.children[0].children[1].classList==='text-black';
+        choiceContainer.children[0].innerHTML = "";
+        myteam.players.forEach((ele)=>{
+            if(ele.pos === pos && ele.status ==='Bench'){
+                let div = choiceContainer.children[0].appendChild(myteam.createBenchCard(ele));
+                div.addEventListener('click',()=>{
+                    myteam.changePlayerStatus(ele);
+                    if(!isEmpty){
+                        let name = el.children[0].children[1].children[0].textContent;
+                        myteam.players.forEach((player)=>{
+                            player.name === name ? myteam.changePlayerStatus(player) : player ;
+                        })
+                    }
+                    myteam.saveToLS();
+                    myteam.renderPlayersInTerrain();
+                    myteam.renderBenchPlayers();
+                    choiceContainer.classList.toggle('invisible');
+                    document.body.classList.toggle('overflow-hidden');
+                })
             }
         })
-        myteam.dynamicNameFormValidation(nameInput);
-        myteam.dynamicStatsFormValidation(PHY);
-        myteam.dynamicStatsFormValidation(DEF);
-        myteam.dynamicStatsFormValidation(SHO);
     })
 })
 closeModalBtn.addEventListener('click', function(){
@@ -57,9 +71,7 @@ addForm.addEventListener('submit', (event) =>{
 
         if(!myteam.checkName(name)) {
             let player = new Player(name,pos,phy,def,sho);
-            player.status = 'Main';
             myteam.addPlayer(player);
-            myteam.changePlayerStatus(player);
             myModal.classList.toggle('invisible');
             document.body.classList.toggle('overflow-hidden');
             resetForm(addForm);
@@ -96,3 +108,15 @@ openModalBtn.addEventListener('click', ()=>{
 })
 
 console.log(myteam);
+myteam.renderBenchPlayers();
+myteam.renderPlayersInTerrain();
+
+document.body.addEventListener('click',(event)=>{
+            
+    if(event.target.id === "choiceContainer"){
+        choiceContainer.classList.toggle('invisible');
+        document.body.classList.toggle('overflow-hidden');
+        choiceContainer.children[0].innerHTML = "";
+    }
+
+})
