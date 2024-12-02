@@ -7,6 +7,7 @@ export function Player(name,pos,phy,def,sho){
     this.phy = phy;
     this.def = def;
     this.sho = sho;
+    this.status = 'bench';
 }
 
  export class Team {
@@ -24,14 +25,50 @@ export function Player(name,pos,phy,def,sho){
         this.editBtnsRender();
     }
     renderPlayersInTerrain(){
-        this.players.forEach((el)=>{
+        let CBcount = 0;
+        let CMcount = 0;
+        let newArr = this.players.filter((el)=> el.status ==='Main');
+        console.log(newArr);
+        console.log(this.players);
+        newArr.forEach((el)=>{
             switch(el.pos){
                 case "LW":
                     this.createTerrainCardAppend(el,terLW);
                     break;
                 case "CB":
-                    
-                    this.createTerrainCardAppend(el,terCBl);
+                    if(CBcount=== 0) {
+                        this.createTerrainCardAppend(el,terCBl);
+                        CBcount++;
+                    }else{
+                        this.createTerrainCardAppend(el,terCBr);
+                    }
+                    break;
+                case "LB":
+                    this.createTerrainCardAppend(el,terLB);
+                    break;
+                case "RB":
+                    this.createTerrainCardAppend(el,terRB);
+                    break;
+                case "CDM":
+                    this.createTerrainCardAppend(el,terCDM);
+                    break;
+                case "GK":
+                    this.createTerrainCardAppend(el,terGK);
+                    break;
+                case "RW":
+                    this.createTerrainCardAppend(el,terRW);
+                    break;
+                case "CM":
+                    if(CMcount === 0){
+                        this.createTerrainCardAppend(el,terCMl);
+                        CMcount++;
+                    }else{
+                        this.createTerrainCardAppend(el,terCMr);
+                    }
+                    break;
+                case "ST":
+                    this.createTerrainCardAppend(el,terST);
+                    break;
                 default:
                     break;
             }
@@ -62,34 +99,14 @@ export function Player(name,pos,phy,def,sho){
             container.appendChild(div);
         }
         else{
-            container.lastChild.remove();
+            container.children[1].remove();
             container.appendChild(div);
         }
     }
     addPlayer(player){
-        this.loadFromLS();
-        if(this.players.length >= 11){
-            return "Team full";
-        }else{
-            for(let el of this.players){
-                if(el.pos === player.pos){
-                    if(el.pos === "CM" && this.getCMCount()<2){
-                        this.players.push(player);
-                        this.saveToLS();
-                        return 1;
-                    }else if(el.pos === "CB" && this.getCBCount()<2){
-                        this.players.push(player);
-                        this.saveToLS();
-                        return 1;
-                    }
-                    return "Position already full!";
-                }
-            }
             this.players.push(player);
-            this.renderPlayersPage();
             this.saveToLS();
             return 1;
-        }
     }
     removePlayer(player){
         const length = this.players.length;
@@ -193,7 +210,7 @@ export function Player(name,pos,phy,def,sho){
             delbtn = document.getElementById(delbtn);
             delbtn.onclick = () =>{
                 this.removePlayer(el);
-                this.renderPlayers();
+                this.renderPlayersPage();
             }
         });
     }
@@ -206,11 +223,11 @@ export function Player(name,pos,phy,def,sho){
                 document.body.classList.toggle('overflow-hidden');
 
                 let radioInputs = document.querySelectorAll('input[name="Position2"]');
-                dynamicNameFormValidation(nameInput2);
-                dynamicRadioFormValidation(radioContainer,radioInputs);
-                dynamicStatsFormValidation(PHY2);
-                dynamicStatsFormValidation(DEF2);
-                dynamicStatsFormValidation(SHO2);
+                this.dynamicNameFormValidation(nameInput2);
+                this.dynamicRadioFormValidation(radioContainer,radioInputs);
+                this.dynamicStatsFormValidation(PHY2);
+                this.dynamicStatsFormValidation(DEF2);
+                this.dynamicStatsFormValidation(SHO2);
 
                 nameInput2.value = el.name;
                 radioInputs.forEach(radio => {
@@ -225,34 +242,133 @@ export function Player(name,pos,phy,def,sho){
                 editForm.addEventListener('submit', (event) => {
                     event.preventDefault();
                     console.log("hello")
-                    if(inputValidation(nameInput2,"5 letters and more only !")) {
+                    if(this.inputValidation(nameInput2,"5 letters and more only !")) {
                         var name = nameInput2.value;
                     }
                     let radioInput = document.querySelector('input[name="Position2"]:checked');
-                    if(radioInputValidation(radioContainer2,radioInput,"Check one of the above !")){
+                    if(this.radioInputValidation(radioContainer2,radioInput,"Check one of the above !")){
                         var pos = radioInput.value;
                     }
-                    if(inputValidation(PHY2,"1 TO 100 !")) {
+                    if(this.inputValidation(PHY2,"1 TO 100 !")) {
                         var phy = PHY2.value;
                     }
-                    if(inputValidation(DEF2,"1 TO 100 !")) {
+                    if(this.inputValidation(DEF2,"1 TO 100 !")) {
                         var def = DEF2.value;
                     }
-                    if(inputValidation(SHO2,"1 TO 100 !")) {
+                    if(this.inputValidation(SHO2,"1 TO 100 !")) {
                         var sho = SHO2.value;
                     }
                     if(name && pos && phy && def && sho){
                         this.editPlayer(el.id,name,pos,phy,def,sho);
                         console.log(el);
-                        this.renderPlayers();
+                        this.renderPlayersPage();
 
 
                         editModal.classList.toggle('invisible');
                         document.body.classList.toggle('overflow-hidden');
-                        resetForm(editForm);
+                        this.resetEditForm(editForm);
                     }
                 });
             }
         });
+    }
+    dynamicNameFormValidation(input){
+        input.addEventListener('input', () =>{
+            if(input.value != "" && input.value.length > 5 && /^[A-Za-z\s]+$/.test(input.value)){
+                input.classList.add('border-green-600','border-2','outline-none');
+                input.classList.remove('border-red-600');
+                if(input.nextElementSibling) input.nextElementSibling.remove();
+            }else if(input.value == ""){
+                input.classList.remove('border-green-600','border-red-600','outline-none');
+            }
+            else{
+                input.classList.add('border-red-600','border-2','outline-none');
+                input.classList.remove('border-green-600');
+            }
+        });
+    }
+    dynamicRadioFormValidation(container,radioInputs){
+        radioInputs.forEach(radio => {
+            radio.addEventListener('change',function(){
+                if(container.lastChild.classList == 'text-red-600') container.lastChild.remove();
+            });
+        });
+    }
+    dynamicStatsFormValidation(input){
+        input.addEventListener('input', function(){
+            if(input.value != "" && parseInt(input.value)<=100){
+                input.classList.add('border-green-600','border-2','outline-none');
+                input.classList.remove('border-red-600');
+                if(input.nextElementSibling) input.nextElementSibling.remove();
+            }else if(input.value == ""){
+                input.classList.remove('border-green-600','border-red-600','outline-none');
+            }
+            else{
+                input.classList.add('border-red-600','border-2','outline-none');
+                input.classList.remove('border-green-600');
+            }
+        });
+    }
+    
+    inputValidation(input,error){
+        if(input.classList.contains('border-green-600')){
+            return 1;
+        }else{
+            if(!input.nextElementSibling){
+                let div = document.createElement('div');
+                div.classList = 'text-red-600';
+                div.innerText = error;
+                input.after(div);
+            }
+            return 0;
+        }
+    }
+    radioInputValidation(container,input,error){
+        if(input){
+            return input.value;
+        }else{
+            if(container.lastChild.classList!='text-red-600'){
+                let div = document.createElement('div');
+                div.classList = 'text-red-600';
+                div.innerText = error;
+                container.appendChild(div);
+            }
+            return 0;
+        }
+    }
+    noNumberString(string){
+        for(let i=0;i<string.length;i++){
+            if(string[i] >= '0' && string[i]<= '9'){
+                return 0;
+            }
+        }
+        return 1;
+    }
+    resetEditForm(form){
+        nameInput2.classList.remove('border-green-600','outline-none','border-red-600','border-2'); //name input reset
+        if(nameInput2.nextElementSibling) nameInput2.nextElementSibling.remove();
+    
+        if(radioContainer2.lastChild.classList == 'text-red-600') radioContainer2.lastChild.remove();
+    
+        PHY2.classList.remove('border-green-600','outline-none','border-red-600','border-2');
+        if(PHY2.nextElementSibling) PHY2.nextElementSibling.remove();
+    
+        DEF2.classList.remove('border-green-600','outline-none','border-red-600','border-2');
+        if(DEF2.nextElementSibling) DEF2.nextElementSibling.remove();
+    
+        SHO2.classList.remove('border-green-600','outline-none','border-red-600','border-2');
+        if(SHO2.nextElementSibling) SHO2.nextElementSibling.remove();
+        
+        errorMsg2.innerText = "";
+        form.reset();
+    }
+
+    checkName(name){
+        for(let el of this.players){
+            return el.name===name ? 1 : 0;
+        }
+    }
+    changePlayerStatus(player){
+        player.status = 'Main'
     }
 }
