@@ -62,9 +62,9 @@
             <button id="openModalBtn" class="bg-white text-black py-2 px-4 rounded-full">ADD PLAYER</button>
         </div>
         <div class="container mx-auto max-w-screen-xl py-4 px-4">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 relative">
+            <div class="grid grid-cols-1 lg:grid-cols-6 gap-4 relative">
                 <!-- Terrain Section -->
-                <div class="relative lg:col-span-1">
+                <div class="relative lg:col-span-4">
                     <!-- Terrain Image -->
                     <div class="grid grid-cols-12 grid-rows-12 gap-4 w-full">
                         <img src="/src/assets/images/terrain.jpg" alt="Terrain" class="col-span-12 row-span-12 shadow-2xl rounded-3xl w-full min-h-screen">
@@ -181,9 +181,11 @@
                     </div>
                 </div>
                 <!--Bench Section-->
-                <div class="lg:col-span-1">
-                    <div id="playersContainer" class="w-full max-h-screen  rounded-3xl overflow-y-scroll">
-                            
+                <div class="lg:col-span-2">
+                    <div class="flex justify-center mb-5">
+                        <button id="toggleBench" class="bg-white text-black py-2 px-4 rounded-full">TOGGLE BENCH</button>
+                    </div>  
+                    <div id="playersContainer" class="w-full max-h-screen  rounded-3xl overflow-y-scroll flex flex-col items-center">
                     </div>
                 </div>
             </div>
@@ -249,7 +251,7 @@
         </div>
         </div>
         <div id="choiceContainer" class="invisible fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 ">
-            <div class="bg-white w-full sm:w-96 md:w-2/3 p-6 rounded-lg mx-auto min-h-96 max-h-[80%] overflow-y-scroll">
+            <div class="bg-[#029356] w-full sm:w-96 md:w-2/3 p-6 rounded-lg mx-auto min-h-96 max-h-[80%] overflow-y-scroll flex gap-10">
             </div>
         </div>
     </main>

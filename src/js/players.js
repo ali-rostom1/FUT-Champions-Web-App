@@ -48,7 +48,7 @@ addForm.addEventListener('submit',function(event){
     if(name && pos && phy && def && sho){
 
         if(!myTeam.checkName(name)) {
-            let img = '../src/assests/images/default.jpg';
+            let img = '/src/assets/images/default.jpg';
             let player = new Player(name,pos,phy,def,sho,img);
             
             console.log(myTeam.addPlayer(player));
@@ -56,7 +56,6 @@ addForm.addEventListener('submit',function(event){
             document.body.classList.toggle('overflow-hidden');
             resetForm(addForm);
             myTeam.renderPlayersPage();
-
         }else{
             errorMsg.innerText = 'name duplicate !!';
             errorMsg.classList.add('text-red-600');

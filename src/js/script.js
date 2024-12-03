@@ -18,13 +18,15 @@ document.querySelectorAll('[id^=ter]').forEach((el)=>{
             
     }else pos=el.id.slice(3,5);
     el.addEventListener('click',() => {
+        if(!myteam.players.length) return;
+        console.log(myteam.players);
         choiceContainer.classList.toggle('invisible');
         document.body.classList.toggle('overflow-hidden');
         let isEmpty = el.children[0].children[1].classList.contains('text-black');
         choiceContainer.children[0].innerHTML = "";
         myteam.players.forEach((ele)=>{
             if(ele.pos === pos && ele.status ==='Bench'){
-                let div = choiceContainer.children[0].appendChild(myteam.createBenchCard(ele));
+                let div = choiceContainer.children[0].appendChild(myteam.createOptionsCard(ele));
                 div.addEventListener('click',()=>{
                     myteam.changePlayerStatus(ele);
                     if(!isEmpty){
@@ -130,3 +132,8 @@ reset.addEventListener('click',()=>{
     localStorage.clear();
     location.reload();
 })
+
+
+toggleBench.onclick = ()=>{
+    playersContainer.classList.toggle('invisible');
+}

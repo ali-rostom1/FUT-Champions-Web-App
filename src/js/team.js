@@ -1,6 +1,6 @@
 
 
-export function Player(name,pos,phy,def,sho,imgPath){
+export function Player(name,pos,phy,def,sho,imgPath,){
     this.id = new Date().getTime();
     this.name = name;
     this.pos = pos;
@@ -9,6 +9,7 @@ export function Player(name,pos,phy,def,sho,imgPath){
     this.sho = sho;
     this.imgPath = imgPath;
     this.status = 'Bench';
+    
 }
 
  export class Team {
@@ -104,15 +105,15 @@ export function Player(name,pos,phy,def,sho,imgPath){
                                 <h3 class="text-xs font-semibold text-gray-800 mb-1 text-center">${player.name}</h3>
                                 <div class="grid grid-cols-3 gap-1 text-xs">
                                     <div class="flex flex-col items-center">
-                                        <span class="font-semibold text-gray-700">PHY</span>
+                                        <span class="font-semibold text-gray-700">${player.pos==="GK" ? "DIV" : "PHY"}</span>
                                         <span class="text-sm font-bold text-blue-600">${player.phy}</span>
                                     </div>
                                     <div class="flex flex-col items-center">
-                                        <span class="font-semibold text-gray-700">DEF</span>
+                                        <span class="font-semibold text-gray-700">${player.pos==="GK" ? "HAN" : "DEF"}</span>
                                         <span class="text-sm font-bold text-blue-600">${player.def}</span>
                                     </div>
                                     <div class="flex flex-col items-center">
-                                        <span class="font-semibold text-gray-700">SHO</span>
+                                        <span class="font-semibold text-gray-700">${player.pos==="GK" ? "SHO" : "SHO"}</span>
                                         <span class="text-sm font-bold text-blue-600">${player.sho}</span>
                                     </div>
                                 </div>
@@ -210,56 +211,109 @@ export function Player(name,pos,phy,def,sho,imgPath){
                 <div class="px-12 py-4 grid grid-cols-3 gap-4 text-white">
                     <!-- Physical Stats -->
                     <div class="text-center" >
-                        <h3 class="text-lg font-semibold">PHY</h3>
+                        <h3 class="text-lg font-semibold">${player.pos==="GK" ? "DIV" : "PHY"}</h3>
                         <p class="text-xl">${player.phy}</p>
                     </div>
                 
                     <!-- Defend Stats -->
                     <div class="text-center">
-                        <h3 class="text-lg font-semibold">DEF</h3>
+                        <h3 class="text-lg font-semibold">${player.pos==="GK" ? "HAN" : "DEF"}</h3>
                         <p class="text-xl">${player.def}</p>
                     </div>
             
                     <!-- Shoot Stats -->
                     <div class="text-center">
-                        <h3 class="text-lg font-semibold">SHO</h3>
+                        <h3 class="text-lg font-semibold">${player.pos==="GK" ? "REF" : "SHO"}</h3>
                         <p class="text-xl">${player.sho}</p>
                     </div>
                 </div>
         `;
         return div;
     }
-    createBenchCard(player){
+    createBenchCard(player) {
+        const div = document.createElement('div');
+        div.classList = 'w-full md:w-2/3 rounded-lg shadow-md bg-gray-900 flex flex-col items-center mb-4 p-3 space-y-4';
+    
+        div.innerHTML = `
+            <!-- Player Image -->
+            <div class="flex-shrink-0">
+                <img 
+                    src="${player.imgPath}" 
+                    alt="Image of ${player.name}" 
+                    class="w-20 h-20 rounded-full object-cover border-4 border-gray-700 shadow-sm"
+                />
+            </div>
+    
+            <!-- Player Info -->
+            <div class="text-center">
+                <h3 class="font-bold text-md text-white">${player.name}</h3>
+                <p class="text-xs text-gray-400 mt-1">
+                    Position: <span class="font-semibold text-white">${player.pos}</span>
+                </p>
+                <p class="text-xs text-gray-400">
+                    Status: <span class="font-semibold text-white">${player.status}</span>
+                </p>
+            </div>
+    
+            <!-- Player Stats -->
+            <div class="grid grid-cols-3 gap-2 text-center text-xs text-white w-full">
+                <!-- Physical Stats -->
+                <div class="flex flex-col items-center">
+                    <h3 class="font-semibold">${player.pos === "GK" ? "DIV" : "PHY"}</h3>
+                    <p class="text-base font-medium">${player.phy}</p>
+                </div>
+    
+                <!-- Defending Stats -->
+                <div class="flex flex-col items-center">
+                    <h3 class="font-semibold">${player.pos === "GK" ? "HAN" : "DEF"}</h3>
+                    <p class="text-base font-medium">${player.def}</p>
+                </div>
+    
+                <!-- Shooting Stats -->
+                <div class="flex flex-col items-center">
+                    <h3 class="font-semibold">${player.pos === "GK" ? "REF" : "SHO"}</h3>
+                    <p class="text-base font-medium">${player.sho}</p>
+                </div>
+            </div>
+    
+            <!-- Action Buttons -->
+            <div class="flex justify-center w-full">
+                <button 
+                    class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md font-medium shadow-sm transition duration-200"
+                    id="${player.id}-del"
+                >
+                    Delete
+                </button>
+            </div>
+        `;
+    
+        return div;
+    }
+    
+    
+    createOptionsCard(player){
         let div = document.createElement('div');
-        div.classList = 'w-[full]] rounded-xl shadow-lg bg-black flex justify-center items-center mb-4 max-h-24';
-        div.innerHTML = `<div class="px-6 py-6">
-                                    <div class="font-bold text-xl mb-2 text-center text-white">${player.name}</div>
-                                    <p class="text-white text-center">Position: <span class="font-semibold">${player.pos}</span></p>
-                                    <p class="text-white text-center">Status: <span class="font-semibold">${player.status}</span></p>
-                                </div>
-                                <!-- Player Stats -->
-                                <div class="px-12 py-4 grid grid-cols-3 gap-4 text-white">
-                                    <!-- Physical Stats -->
-                                    <div class="text-center" >
-                                        <h3 class="text-lg font-semibold">PHY</h3>
-                                        <p class="text-xl">${player.phy}</p>
+        div.classList = "bg-white shadow-md rounded-lg border border-gray-200 p-1 w-20 sm:w-20  lg:w-28 hover:scale-105 transition-transform duration-300 ease-in-out h-[50%]";
+        div.innerHTML = `
+                            <div class="flex justify-center mb-1">
+                                    <img class="h-10 w-10 md:w-16 md:h-16 rounded-full object-cover border-2 border-gray-300" src=${player.imgPath} alt="${player.name}">
+                                </div> 
+                                <h3 class="text-xs font-semibold text-gray-800 mb-1 text-center">${player.name}</h3>
+                                <div class="grid grid-cols-3 gap-1 text-xs">
+                                    <div class="flex flex-col items-center">
+                                        <span class="font-semibold text-gray-700">${player.pos==="GK" ? "DIV" : "PHY"}</span>
+                                        <span class="text-sm font-bold text-blue-600">${player.phy}</span>
                                     </div>
-                                
-                                    <!-- Defend Stats -->
-                                    <div class="text-center">
-                                        <h3 class="text-lg font-semibold">DEF</h3>
-                                        <p class="text-xl">${player.def}</p>
+                                    <div class="flex flex-col items-center">
+                                        <span class="font-semibold text-gray-700">${player.pos==="GK" ? "HAN" : "DEF"}</span>
+                                        <span class="text-sm font-bold text-blue-600">${player.def}</span>
                                     </div>
-                            
-                                    <!-- Shoot Stats -->
-                                    <div class="text-center">
-                                        <h3 class="text-lg font-semibold">SHO</h3>
-                                        <p class="text-xl">${player.sho}</p>
+                                    <div class="flex flex-col items-center">
+                                        <span class="font-semibold text-gray-700">${player.pos==="GK" ? "SHO" : "SHO"}</span>
+                                        <span class="text-sm font-bold text-blue-600">${player.sho}</span>
                                     </div>
                                 </div>
-                                <div class="flex justify-center gap-6">
-                                    <button class="bg-red-500 text-white px-2 rounded-md" id="${player.id}-del">DEL</button>
-                                </div>`
+        `;
         return div;
     }
     delBtnsRender(){
@@ -433,7 +487,12 @@ export function Player(name,pos,phy,def,sho,imgPath){
             .then(res => res.json())
             .then(data => {
                 data.players.forEach((el)=>{
-                    let player = new Player(el.name,el.position,el.physical,el.defending,el.shooting,el.photo);
+                    let player;
+                    if(el.position === 'GK'){
+                        player = new Player(el.name,el.position,el.diving,el.handling,el.reflexes,el.photo);
+                    }else{
+                        player = new Player(el.name,el.position,el.physical,el.defending,el.shooting,el.photo);
+                    }
                     this.addPlayer(player)
                     this.saveToLS();
                     this.renderBenchPlayers();
