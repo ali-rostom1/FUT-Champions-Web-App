@@ -74,7 +74,7 @@ export function Player(name,pos,phy,def,sho,imgPath){
         })
     }
     renderBenchPlayers(){
-        playersContainer.innerHTML="";
+        playersContainer.innerHTML= "";
         this.players.forEach((el)=>{
             if(el.status ==="Bench"){
                 playersContainer.appendChild(this.createBenchCard(el));
@@ -98,19 +98,22 @@ export function Player(name,pos,phy,def,sho,imgPath){
         let container = terpos.children[0];
         let div = document.createElement('div');
                     div.innerHTML = `
-                                    <h3 class="text-sm font-semibold text-gray-800 mb-2">${player.name}</h3>
-                                <div class="grid grid-cols-3 gap-2 text-sm">
+                                     <div class="flex justify-center mb-1">
+                                    <img class="h-10 w-10 md:w-16 md:h-16 rounded-full object-cover border-2 border-gray-300" src=${player.imgPath} alt="${player.name}">
+                                </div> 
+                                <h3 class="text-xs font-semibold text-gray-800 mb-1 text-center">${player.name}</h3>
+                                <div class="grid grid-cols-3 gap-1 text-xs">
                                     <div class="flex flex-col items-center">
-                                        <span class="font-bold text-gray-700">PHY</span>
-                                        <span class="text-blue-600">${player.phy}</span>
+                                        <span class="font-semibold text-gray-700">PHY</span>
+                                        <span class="text-sm font-bold text-blue-600">${player.phy}</span>
                                     </div>
                                     <div class="flex flex-col items-center">
-                                        <span class="font-bold text-gray-700">DEF</span>
-                                        <span class="text-blue-600">${player.def}</span>
+                                        <span class="font-semibold text-gray-700">DEF</span>
+                                        <span class="text-sm font-bold text-blue-600">${player.def}</span>
                                     </div>
                                     <div class="flex flex-col items-center">
-                                        <span class="font-bold text-gray-700">SHO</span>
-                                        <span class="text-blue-600">${player.sho}</span>
+                                        <span class="font-semibold text-gray-700">SHO</span>
+                                        <span class="text-sm font-bold text-blue-600">${player.sho}</span>
                                     </div>
                                 </div>
                     `
@@ -126,6 +129,7 @@ export function Player(name,pos,phy,def,sho,imgPath){
         if(this.checkName(player.name)) return 0;
         else{
             this.players.push(player);
+            this.saveToLS();
             return 1;
         }
     }

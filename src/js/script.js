@@ -20,7 +20,7 @@ document.querySelectorAll('[id^=ter]').forEach((el)=>{
     el.addEventListener('click',() => {
         choiceContainer.classList.toggle('invisible');
         document.body.classList.toggle('overflow-hidden');
-        let isEmpty = el.children[0].children[1].classList==='text-black';
+        let isEmpty = el.children[0].children[1].classList.contains('text-black');
         choiceContainer.children[0].innerHTML = "";
         myteam.players.forEach((ele)=>{
             if(ele.pos === pos && ele.status ==='Bench'){
@@ -28,7 +28,8 @@ document.querySelectorAll('[id^=ter]').forEach((el)=>{
                 div.addEventListener('click',()=>{
                     myteam.changePlayerStatus(ele);
                     if(!isEmpty){
-                        let name = el.children[0].children[1].children[0].textContent;
+                        let name = el.children[0].children[1].children[1].textContent;
+                        console.log(name);
                         myteam.players.forEach((player)=>{
                             player.name === name ? myteam.changePlayerStatus(player) : player ;
                         })
@@ -127,6 +128,5 @@ loadPlayers.onclick = () =>{
 
 reset.addEventListener('click',()=>{
     localStorage.clear();
-    myteam.renderBenchPlayers();
-    myteam.renderPlayersInTerrain();
+    location.reload();
 })

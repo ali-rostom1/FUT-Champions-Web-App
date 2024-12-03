@@ -48,8 +48,10 @@ addForm.addEventListener('submit',function(event){
     if(name && pos && phy && def && sho){
 
         if(!myTeam.checkName(name)) {
-            let player = new Player(name,pos,phy,def,sho);
-            myTeam.addPlayer(player);
+            let img = '../src/assests/images/default.jpg';
+            let player = new Player(name,pos,phy,def,sho,img);
+            
+            console.log(myTeam.addPlayer(player));
             myModal.classList.toggle('invisible');
             document.body.classList.toggle('overflow-hidden');
             resetForm(addForm);
