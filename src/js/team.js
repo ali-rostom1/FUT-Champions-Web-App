@@ -1,12 +1,13 @@
 
 
-export function Player(name,pos,phy,def,sho){
+export function Player(name,pos,phy,def,sho,imgPath){
     this.id = new Date().getTime();
     this.name = name;
     this.pos = pos;
     this.phy = phy;
     this.def = def;
     this.sho = sho;
+    this.imgPath = imgPath;
     this.status = 'Bench';
 }
 
@@ -77,6 +78,11 @@ export function Player(name,pos,phy,def,sho){
         this.players.forEach((el)=>{
             if(el.status ==="Bench"){
                 playersContainer.appendChild(this.createBenchCard(el));
+                let delbtn = document.getElementById(`${el.id}-del`);
+                delbtn.onclick = () =>{
+                    this.removePlayer(el);
+                    this.renderBenchPlayers();
+                }
             }
         })
     }
@@ -117,9 +123,11 @@ export function Player(name,pos,phy,def,sho){
         }
     }
     addPlayer(player){
+        if(this.checkName(player.name)) return 0;
+        else{
             this.players.push(player);
-            this.saveToLS();
             return 1;
+        }
     }
     removePlayer(player){
         const length = this.players.length;
@@ -247,7 +255,6 @@ export function Player(name,pos,phy,def,sho){
                                 </div>
                                 <div class="flex justify-center gap-6">
                                     <button class="bg-red-500 text-white px-2 rounded-md" id="${player.id}-del">DEL</button>
-                                    <button class="bg-sky-600 text-white px-2 rounded-md" id="${player.id}-edit">EDIT</button>
                                 </div>`
         return div;
     }
@@ -410,11 +417,26 @@ export function Player(name,pos,phy,def,sho){
 
     checkName(name){
         for(let el of this.players){
-            return el.name===name ? 1 : 0;
+            if(el.name === name) return 1;
         }
+        return 0;
     }
     changePlayerStatus(player){
         player.status = player.status==='Main' ? 'Bench' : 'Main';
     }
-
+    loadJSON(){
+        fetch('./data/players.json')
+            .then(res => res.json())
+            .then(data => {
+                data.players.forEach((el)=>{
+                    let player = new Player(el.name,el.position,el.physical,el.defending,el.shooting,el.photo);
+                    this.addPlayer(player)
+                    this.saveToLS();
+                    this.renderBenchPlayers();
+                    this.renderPlayersInTerrain();
+            })
+        });
+    }
 }
+
+

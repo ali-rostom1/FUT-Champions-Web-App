@@ -31,3 +31,6 @@ input[type="radio"]:checked + label {
     border-color: #007bff;
 }
 
+::-webkit-scrollbar {
+    display: none;
+  }

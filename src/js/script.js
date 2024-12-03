@@ -120,3 +120,13 @@ document.body.addEventListener('click',(event)=>{
     }
 
 })
+loadPlayers.onclick = () =>{
+    myteam.loadJSON();
+    console.log(myteam.players);
+}
+
+reset.addEventListener('click',()=>{
+    localStorage.clear();
+    myteam.renderBenchPlayers();
+    myteam.renderPlayersInTerrain();
+})
