@@ -1,4 +1,4 @@
-import {Team , Player} from 'assets/js/team.js';
+import {Team , Player} from './team.js';
 
 mobileMenuToggle.addEventListener('click', function (){
     mobileMenu.classList.toggle('hidden');
