@@ -86,15 +86,15 @@ addForm.addEventListener('submit', (event) =>{
     }
     if(name && pos && phy && def && sho){
 
-        if(!myTeam.checkName(name)) {
+        if(!myteam.checkName(name)) {
             let img = 'assets/images/default.jpg';
             let player = new Player(name,pos,phy,def,sho,img);
             
-            console.log(myTeam.addPlayer(player));
+            myteam.addPlayer(player);
+            myteam.renderBenchPlayers();
             myModal.classList.toggle('invisible');
             document.body.classList.toggle('overflow-hidden');
             resetForm(addForm);
-            myTeam.renderPlayersPage();
         }else{
             errorMsg.innerText = 'name duplicate !!';
             errorMsg.classList.add('text-red-600');

@@ -51,7 +51,7 @@ addForm.addEventListener('submit',function(event){
             let img = '/src/assets/images/default.jpg';
             let player = new Player(name,pos,phy,def,sho,img);
             
-            console.log(myTeam.addPlayer(player));
+            myTeam.addPlayer(player)
             myModal.classList.toggle('invisible');
             document.body.classList.toggle('overflow-hidden');
             resetForm(addForm);
