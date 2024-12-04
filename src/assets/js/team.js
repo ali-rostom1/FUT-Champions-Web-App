@@ -406,7 +406,7 @@ export class Team {
     }
     dynamicStatsFormValidation(input){
         input.addEventListener('input', function(){
-            if(input.value != "" && parseInt(input.value)<=100){
+            if(input.value != "" && parseInt(input.value)<=100 && parseInt(input.value)>0){
                 input.classList.add('border-green-600','border-2','outline-none');
                 input.classList.remove('border-red-600');
                 if(input.nextElementSibling) input.nextElementSibling.remove();

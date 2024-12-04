@@ -68,31 +68,33 @@ closeModalBtn.addEventListener('click', function(){
 
 addForm.addEventListener('submit', (event) =>{
     event.preventDefault();
-    if(myteam.inputValidation(nameInput,"5 letters and more only !")) {
+    if(myteam.inputNameValidation(nameInput,"5 letters and more only !")) {
         var name = nameInput.value;
     }
     let radioInput = document.querySelector('input[name="Position"]:checked');
     if(myteam.radioInputValidation(radioContainer,radioInput,"Check one of the above !")){
         var pos = radioInput.value;
     }
-    if(myteam.inputValidation(PHY,"1 TO 100 !")) {
+    if(myteam.inputStatsValidation(PHY,"1 TO 100 !")) {
         var phy = PHY.value;
     }
-    if(myteam.inputValidation(DEF,"1 TO 100 !")) {
+    if(myteam.inputStatsValidation(DEF,"1 TO 100 !")) {
         var def = DEF.value;
     }
-    if(myteam.inputValidation(SHO,"1 TO 100 !")) {
+    if(myteam.inputStatsValidation(SHO,"1 TO 100 !")) {
         var sho = SHO.value;
     }
     if(name && pos && phy && def && sho){
 
-        if(!myteam.checkName(name)) {
-            let player = new Player(name,pos,phy,def,sho);
-            myteam.addPlayer(player);
+        if(!myTeam.checkName(name)) {
+            let img = 'assets/images/default.jpg';
+            let player = new Player(name,pos,phy,def,sho,img);
+            
+            console.log(myTeam.addPlayer(player));
             myModal.classList.toggle('invisible');
             document.body.classList.toggle('overflow-hidden');
             resetForm(addForm);
-
+            myTeam.renderPlayersPage();
         }else{
             errorMsg.innerText = 'name duplicate !!';
             errorMsg.classList.add('text-red-600');
@@ -121,7 +123,12 @@ function resetForm(form){
 openModalBtn.addEventListener('click', ()=>{
     myModal.classList.toggle('invisible');
     document.body.classList.toggle('overflow-hidden');
-    resetForm(addForm);
+    myteam.dynamicNameFormValidation(nameInput);
+    let radioInputs = document.querySelectorAll('input[name="Position"]');
+    myteam.dynamicRadioFormValidation(radioContainer,radioInputs);
+    myteam.dynamicStatsFormValidation(PHY);
+    myteam.dynamicStatsFormValidation(DEF);
+    myteam.dynamicStatsFormValidation(SHO);
 })
 
 console.log(myteam);
