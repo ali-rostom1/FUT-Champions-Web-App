@@ -29,20 +29,20 @@ openModalBtn.addEventListener('click', function(){
 
 addForm.addEventListener('submit',function(event){
     event.preventDefault();
-    if(myTeam.inputValidation(nameInput,"5 letters and more only !")) {
+    if(myTeam.inputNameValidation(nameInput,"5 letters and more only !")) {
         var name = nameInput.value;
     }
     let radioInput = document.querySelector('input[name="Position"]:checked');
     if(myTeam.radioInputValidation(radioContainer,radioInput,"Check one of the above !")){
         var pos = radioInput.value;
     }
-    if(myTeam.inputValidation(PHY,"1 TO 100 !")) {
+    if(myTeam.inputStatsValidation(PHY,"1 TO 100 !")) {
         var phy = PHY.value;
     }
-    if(myTeam.inputValidation(DEF,"1 TO 100 !")) {
+    if(myTeam.inputStatsValidation(DEF,"1 TO 100 !")) {
         var def = DEF.value;
     }
-    if(myTeam.inputValidation(SHO,"1 TO 100 !")) {
+    if(myTeam.inputStatsValidation(SHO,"1 TO 100 !")) {
         var sho = SHO.value;
     }
     if(name && pos && phy && def && sho){

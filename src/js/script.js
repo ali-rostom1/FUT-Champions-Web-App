@@ -24,9 +24,23 @@ document.querySelectorAll('[id^=ter]').forEach((el)=>{
         document.body.classList.toggle('overflow-hidden');
         let isEmpty = el.children[0].children[1].classList.contains('text-black');
         choiceContainer.children[0].innerHTML = "";
+        if(!isEmpty) {
+            choiceContainer.children[0].appendChild(removePlayerFromTerrainButton());
+            choiceContainer.children[0].lastChild.addEventListener('click',()=>{
+                let name = el.children[0].children[1].children[1].textContent;
+                myteam.players.forEach((player)=>{
+                    player.name === name ? myteam.changePlayerStatus(player) : player ;
+                })
+                el.children[0].children[1].remove();
+                el.children[0].appendChild(createPlusSignTerrain());
+                choiceContainer.classList.toggle('invisible');
+                document.body.classList.toggle('overflow-hidden');
+                return;
+            })
+            
+        }
         myteam.players.forEach((ele)=>{
             if(ele.pos === pos && ele.status ==='Bench'){
-                if(!isEmpty) choiceContainer.children[0].appendChild(removePlayerFromTerrainButton());
                 let div = choiceContainer.children[0].appendChild(myteam.createOptionsCard(ele));
                 div.addEventListener('click',()=>{
                     myteam.changePlayerStatus(ele);
@@ -37,7 +51,6 @@ document.querySelectorAll('[id^=ter]').forEach((el)=>{
                             player.name === name ? myteam.changePlayerStatus(player) : player ;
                         })
                     }
-                    myteam.saveToLS();
                     myteam.renderPlayersInTerrain();
                     myteam.renderBenchPlayers();
                     choiceContainer.classList.toggle('invisible');
@@ -141,6 +154,18 @@ toggleBench.onclick = ()=>{
 
 function removePlayerFromTerrainButton(){
     let div = document.createElement('div');
-    div.classList = 'bg-white shadow-md rounded-lg border border-gray-200 p-1 w-20 sm:w-20  lg:w-28 hover:scale-105 transition-transform duration-300 ease-in-out h-[50%]';
+    div.classList = 'bg-white shadow-md rounded-lg border border-gray-200 p-1 w-20 sm:w-20  lg:w-28 hover:scale-105 transition-transform duration-300 ease-in-out min-h-full';
+    div.innerHTML=`
+                <div class="flex justify-center items-center h-full">
+                <i class="fa-solid fa-ban text-3xl"></i>
+                </div>
+    `
+    return div;
+}
+
+function createPlusSignTerrain(){
+    let div = document.createElement('div');
+    div.classList = 'text-black text-center mt-5'
+    div.innerHTML = '<i class="fa-solid fa-plus"></i></div>';
     return div;
 }

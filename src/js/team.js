@@ -353,20 +353,20 @@ export class Team {
                 
                 editForm.addEventListener('submit', (event) => {
                     event.preventDefault();
-                    if(this.inputValidation(nameInput2,"5 letters and more only !")) {
+                    if(this.inputNameValidation(nameInput2,"5 letters and more only !")) {
                         var name = nameInput2.value;
                     }
                     let radioInput = document.querySelector('input[name="Position2"]:checked');
                     if(this.radioInputValidation(radioContainer2,radioInput,"Check one of the above !")){
                         var pos = radioInput.value;
                     }
-                    if(this.inputValidation(PHY2,"1 TO 100 !")) {
+                    if(this.inputStatsValidation(PHY2,"1 TO 100 !")) {
                         var phy = PHY2.value;
                     }
-                    if(this.inputValidation(DEF2,"1 TO 100 !")) {
+                    if(this.inputStatsValidation(DEF2,"1 TO 100 !")) {
                         var def = DEF2.value;
                     }
-                    if(this.inputValidation(SHO2,"1 TO 100 !")) {
+                    if(this.inputStatsValidation(SHO2,"1 TO 100 !")) {
                         var sho = SHO2.value;
                     }
                     if(name && pos && phy && def && sho){
@@ -420,8 +420,21 @@ export class Team {
         });
     }
     
-    inputValidation(input,error){
-        if(input.classList.contains('border-green-600')){
+    inputNameValidation(input,error){
+        if(/^[A-Za-z\s]+$/.test(input.value)){
+            return 1;
+        }else{
+            if(!input.nextElementSibling){
+                let div = document.createElement('div');
+                div.classList = 'text-red-600';
+                div.innerText = error;
+                input.after(div);
+            }
+            return 0;
+        }
+    }
+    inputStatsValidation(input,error){
+        if(parseInt(input.value)<=100){
             return 1;
         }else{
             if(!input.nextElementSibling){
@@ -481,6 +494,7 @@ export class Team {
     }
     changePlayerStatus(player){
         player.status = player.status==='Main' ? 'Bench' : 'Main';
+        this.saveToLS();
     }
     loadJSON(){
         fetch('./data/players.json')
