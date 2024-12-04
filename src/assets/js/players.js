@@ -49,7 +49,8 @@ addForm.addEventListener('submit',function(event){
 
         if(!myTeam.checkName(name)) {
             let img = '/src/assets/images/default.jpg';
-            let player = new Player(name,pos,phy,def,sho,img);
+            let rating = Math.floor((parseInt(phy)+parseInt(def)+parseInt(sho))/3);
+            let player = new Player(name,pos,phy,def,sho,img,rating);
             
             myTeam.addPlayer(player)
             myModal.classList.toggle('invisible');

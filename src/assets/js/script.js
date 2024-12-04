@@ -88,7 +88,8 @@ addForm.addEventListener('submit', (event) =>{
 
         if(!myteam.checkName(name)) {
             let img = 'assets/images/default.jpg';
-            let player = new Player(name,pos,phy,def,sho,img);
+            let rating = Math.floor((parseInt(phy)+parseInt(def)+parseInt(sho))/3);
+            let player = new Player(name,pos,phy,def,sho,img,rating);
             
             myteam.addPlayer(player);
             myteam.renderBenchPlayers();

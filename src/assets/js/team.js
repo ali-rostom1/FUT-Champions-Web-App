@@ -1,6 +1,6 @@
 
 
-export function Player(name,pos,phy,def,sho,imgPath,){
+export function Player(name,pos,phy,def,sho,imgPath,rating){
     this.id = new Date().getTime();
     this.name = name;
     this.pos = pos;
@@ -8,6 +8,7 @@ export function Player(name,pos,phy,def,sho,imgPath,){
     this.def = def;
     this.sho = sho;
     this.imgPath = imgPath;
+    this.rating = rating;
     this.status = 'Bench';
     
 }
@@ -103,6 +104,7 @@ export class Team {
                                     <img class="h-10 w-10 md:w-16 md:h-16 rounded-full object-cover border-2 border-gray-300" src=${player.imgPath} alt="${player.name}">
                                 </div> 
                                 <h3 class="text-xs font-semibold text-gray-800 mb-1 text-center">${player.name}</h3>
+                                <span class="absolute top-[3%] left-[10%] font-bold ${player.rating > 90 ? "text-yellow-400": ""}">${player.rating}</span>
                                 <div class="grid grid-cols-3 gap-1 text-xs">
                                     <div class="flex flex-col items-center">
                                         <span class="font-semibold text-gray-700">${player.pos==="GK" ? "DIV" : "PHY"}</span>
@@ -201,6 +203,7 @@ export class Team {
                 <div class="px-6 py-6">
                     <div class="font-bold text-xl mb-2 text-center text-white">${player.name}</div>
                     <p class="text-white text-center">Position: <span class="font-semibold">${player.pos}</span></p>
+                    <p class="text-white text-center">Rating: <span class="font-semibold">${player.rating}</span></p>
                     <p class="text-white text-center">Status: <span class="font-semibold">${player.status}</span></p>
                 </div>
                 <div class="flex justify-center gap-6">
@@ -251,6 +254,9 @@ export class Team {
                     Position: <span class="font-semibold text-white">${player.pos}</span>
                 </p>
                 <p class="text-xs text-gray-400">
+                    Rating: <span class="font-semibold text-white">${player.rating}</span>
+                </p>
+                <p class="text-xs text-gray-400">
                     Status: <span class="font-semibold text-white">${player.status}</span>
                 </p>
             </div>
@@ -295,6 +301,7 @@ export class Team {
         let div = document.createElement('div');
         div.classList = "bg-white shadow-md rounded-lg border border-gray-200 p-1 w-20 sm:w-20  lg:w-28 hover:scale-105 transition-transform duration-300 ease-in-out h-[50%]";
         div.innerHTML = `
+                            <div class="text-sm font-bold text-red-700 text-center">${player.rating}</div>
                             <div class="flex justify-center mb-1">
                                     <img class="h-10 w-10 md:w-16 md:h-16 rounded-full object-cover border-2 border-gray-300" src=${player.imgPath} alt="${player.name}">
                                 </div> 
@@ -503,9 +510,9 @@ export class Team {
                 data.players.forEach((el)=>{
                     let player;
                     if(el.position === 'GK'){
-                        player = new Player(el.name,el.position,el.diving,el.handling,el.reflexes,el.photo);
+                        player = new Player(el.name,el.position,el.diving,el.handling,el.reflexes,el.photo,el.rating);
                     }else{
-                        player = new Player(el.name,el.position,el.physical,el.defending,el.shooting,el.photo);
+                        player = new Player(el.name,el.position,el.physical,el.defending,el.shooting,el.photo,el.rating);
                     }
                     this.addPlayer(player)
                     this.saveToLS();
