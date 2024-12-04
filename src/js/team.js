@@ -497,7 +497,7 @@ export class Team {
         this.saveToLS();
     }
     loadJSON(){
-        fetch('./data/players.json')
+        fetch('../src/data/players.json')
             .then(res => res.json())
             .then(data => {
                 data.players.forEach((el)=>{
