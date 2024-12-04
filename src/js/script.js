@@ -26,12 +26,13 @@ document.querySelectorAll('[id^=ter]').forEach((el)=>{
         choiceContainer.children[0].innerHTML = "";
         myteam.players.forEach((ele)=>{
             if(ele.pos === pos && ele.status ==='Bench'){
+                if(!isEmpty) choiceContainer.children[0].appendChild(removePlayerFromTerrainButton());
                 let div = choiceContainer.children[0].appendChild(myteam.createOptionsCard(ele));
                 div.addEventListener('click',()=>{
                     myteam.changePlayerStatus(ele);
                     if(!isEmpty){
+
                         let name = el.children[0].children[1].children[1].textContent;
-                        console.log(name);
                         myteam.players.forEach((player)=>{
                             player.name === name ? myteam.changePlayerStatus(player) : player ;
                         })
@@ -136,4 +137,10 @@ reset.addEventListener('click',()=>{
 
 toggleBench.onclick = ()=>{
     playersContainer.classList.toggle('invisible');
+}
+
+function removePlayerFromTerrainButton(){
+    let div = document.createElement('div');
+    div.classList = 'bg-white shadow-md rounded-lg border border-gray-200 p-1 w-20 sm:w-20  lg:w-28 hover:scale-105 transition-transform duration-300 ease-in-out h-[50%]';
+    return div;
 }

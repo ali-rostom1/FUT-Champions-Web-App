@@ -12,7 +12,7 @@ export function Player(name,pos,phy,def,sho,imgPath,){
     
 }
 
- export class Team {
+export class Team {
     constructor() {
         this.players = [];
         this.formation = "4-3-3";
