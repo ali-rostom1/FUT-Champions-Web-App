@@ -99,12 +99,13 @@ export class Team {
     createTerrainCardAppend(player,terpos){
         let container = terpos.children[0];
         let div = document.createElement('div');
+
                     div.innerHTML = `
                                      <div class="flex justify-center mb-1">
                                     <img class="h-10 w-10 md:w-16 md:h-16 rounded-full object-cover border-2 border-gray-300" src=${player.imgPath} alt="${player.name}">
                                 </div> 
                                 <h3 class="text-xs font-semibold text-gray-800 mb-1 text-center">${player.name}</h3>
-                                <span class="absolute top-[3%] left-[10%] font-bold ${player.rating > 90 ? "text-yellow-400": ""}">${player.rating}</span>
+                                <span class="absolute top-[3%] left-[10%] font-bold ${player.rating > 90 ? "text-yellow-300": player.rating>80 ? "text-yellow-400" : "text-red-600"}">${player.rating}</span>
                                 <div class="grid grid-cols-3 gap-1 text-xs">
                                     <div class="flex flex-col items-center">
                                         <span class="font-semibold text-gray-700">${player.pos==="GK" ? "DIV" : "PHY"}</span>
@@ -522,5 +523,4 @@ export class Team {
         });
     }
 }
-
 

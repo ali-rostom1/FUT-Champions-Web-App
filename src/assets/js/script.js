@@ -177,3 +177,6 @@ function createPlusSignTerrain(){
     div.innerHTML = '<i class="fa-solid fa-plus"></i></div>';
     return div;
 }
+
+
+
